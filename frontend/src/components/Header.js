@@ -1,9 +1,19 @@
 import React from 'react';
-import {Icon} from 'antd';
+import {Icon, Input, Button} from 'antd';
 import '../styles/styles.scss'
+import { NavLink } from 'react-router-dom';
+import auth from '../Auth'
 class Header extends React.Component{
+    state={
+        searchField:'',
+    }
 
+    logout(){
+        auth.logOut()
+        // this.props.history.push('/login')
+    }
     render(){
+
         return (
             <div className = "header-container">
                 <div className = "header-flex-box">
@@ -20,24 +30,29 @@ class Header extends React.Component{
 
                     <div className = "header-flex-box-search">
                         <div>
-                            <span><Icon type = "search" className ="search-icon"/></span>
-                            <input type = "text" placeholder="Search business"/>
+                            <Input
+                                prefix={<Icon type="search" style={{ fontSize: 15 }} />}
+                                type="text"
+                                placeholder="Search Business"
+                                onChange={e => this.setState({ searchField: e.target.value })}
+                            />
                         </div>
                     </div>
 
                     <div className = "header-flex-box-menu">
                         <ul>
-                            <li><a href="#"><Icon type = "team" className="header-icon"/>Investors</a></li>
-                            <li><a href="#"><Icon type = "user" className="header-icon"/>My Profile</a></li>
-                            <li><a href="#"><Icon type = "logout" className="header-icon"/>Logout</a></li>
+                            <li><NavLink to='/homepage' activeClassName="active-link" ><Icon type = "home" className="header-icon"/>Homepage</NavLink></li>
+                            <li><NavLink to="/homepage" activeClassName="active-link"><Icon type = "team" className="header-icon"/>Investors</NavLink></li>
+                            <li><NavLink to='/profile'  activeClassName="active-link"><Icon type = "user" className="header-icon"/>My Profile</NavLink></li>
+                            <li><button onClick={this.logout}><Icon type = "logout" className="header-icon"/>Logout</button></li>
                         </ul>
                     </div>
 
                 </div>
 
                 <div className = "header-btns">
-                    <button className = "create-btn-green"><Icon type = "dollar" className="header-icon-btn"/>Create Stock</button>
-                    <button className = "create-btn-white"><Icon type = "book" className="header-icon-btn"/>Create New Post</button>
+                 <NavLink to='/createstock' activeClassName ='active-link'><Button className = "create-btn-green"><Icon type = "dollar"/>Create Stock</Button></NavLink>
+                    <NavLink to= '/createpost' activeClassName ='active-link'><Button className = "create-btn-white"><Icon type = "book"/>Create New Post</Button></NavLink>
                     
                 </div>
 

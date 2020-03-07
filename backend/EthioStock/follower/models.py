@@ -1,15 +1,13 @@
 from django.db import models
-from businessowner.models import BusinessOwnerModel
-from investor.models import InvestorModel
+from businessowner.models import Businessowner
+from investor.models import Investor
 
-class FollowerModel(models.Model):
+class Follower(models.Model):
     businessId = models.ForeignKey(
-        BusinessOwnerModel,
-        related_name="businessOwnerId",
+        Businessowner,
         on_delete=models.CASCADE
     )
     investorId = models.ForeignKey(
-        InvestorModel,
-        related_name="investorId",
+        Investor,
         on_delete=models.CASCADE
     )

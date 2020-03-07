@@ -1,12 +1,11 @@
 from django.db import models
-from stock.models import StockModel
+from stock.models import Stock
 
-class PredictionModel(models.Model):
+class Prediction(models.Model):
     stockID = models.ForeignKey(
-        StockModel,
-        related_name="stockId",
+        Stock,
         on_delete=models.CASCADE
     )
-    predictedPrice = models.DecimalField()
-    actualPrice = models.DecimalField()
-    predictionDate = models.DateField()
+    predictedPrice = models.DecimalField(decimal_places=2, max_digits=10)
+    actualPrice = models.DecimalField(decimal_places=2, max_digits=10)
+    predictionDate = models.DecimalField(decimal_places=2, max_digits=10)

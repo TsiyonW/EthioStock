@@ -1,15 +1,15 @@
 from django.db import models
-from investor.models import InvestorModel
+from investor.models import Investor
 
-class UserReportModel(models.Model):
+class UserReport(models.Model):
     reportedBy = models.ForeignKey(
-        InvestorModel,
-        related_name="investorId", 
+        Investor,
+        related_name='reportedByUserId',
         on_delete = models.DO_NOTHING
     )
     reportedUserId = models.ForeignKey(
-        InvestorModel,
-        related_name="investorId", 
+        Investor,
+        related_name='reportedUserId',
         on_delete = models.DO_NOTHING
     )
     reason = models.TextField()
