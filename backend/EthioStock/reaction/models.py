@@ -1,11 +1,10 @@
 from django.db import models
-from investor.models import InvestorModel
+from investor.models import Investor
 
 class Reaction(models.Model):
     postId = id
     investorId = models.ForeignKey(
-        InvestorModel,
-        related_name="investorId", 
+        Investor,
         on_delete = models.DO_NOTHING
     )
     isLike = models.BooleanField()

@@ -1,15 +1,13 @@
 from django.db import models
-from businessowner.models import BusinessOwnerModel
-from investor.models import InvestorModel
+from investor.models import Investor
+from businessowner.models import Businessowner
 
-class WatchlistModel(models.Model):
+class Watchlist(models.Model):
     ownerId = models.ForeignKey(
-        InvestorModel,
-        related_name="investorId", 
+        Investor,
         on_delete = models.DO_NOTHING
     )
     businessId = models.ForeignKey(
-        BusinessOwnerModel,
-        related_name="businessOwnerId", 
+        Businessowner, 
         on_delete = models.DO_NOTHING
     )

@@ -1,23 +1,20 @@
 from django.db import models
-from stock.models import StockModel
-from investor.models import InvestorModel
-from businessowner.models import BusinessOwnerModel
+from stock.models import Stock
+from investor.models import Investor
+from businessowner.models import Businessowner
 
-class SoldStockLedgerModel(models.Model):
+class SoldStockLedger(models.Model):
     stockId  = models.ForeignKey(
-        StockModel,
-        related_name="businessOwnerId",
+        Stock,
         on_delete=models.DO_NOTHING
     )
     investorId = models.ForeignKey(
-        InvestorModel,
-        related_name="businessOwnerId",
+        Investor,
         on_delete=models.DO_NOTHING
     )
-    totalPrice = models.DecimalField(decimal_places=2)
+    totalPrice = models.DecimalField(decimal_places=2, max_digits=10)
     numberOfStock = models.IntegerField()
     sellerId = models.ForeignKey(
-        BusinessOwnerModel,
-        related_name="businessOwnerId",
+        Businessowner,
         on_delete=models.DO_NOTHING
     )

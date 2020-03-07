@@ -1,13 +1,12 @@
 from django.db import models
-from businessowner.models import BusinessOwnerModel
+from businessowner.models import Businessowner
 
-class PostModel(models.Model):
-    postId = id
-    ownerId = models.ForeignKey(
-        BusinessOwnerModel,
-        related_name="businessOwnerId",
+class Post(models.Model):
+    owner = models.ForeignKey(
+        Businessowner,
         on_delete=models.DO_NOTHING
     )
     description =models.TextField()
+    title = models.TextField()
     image = [models.ImageField()]
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=True)

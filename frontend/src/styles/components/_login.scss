@@ -2,6 +2,7 @@ $headerBackgroundColor:rgb(210,235,231);
 $navBarBackgroundColor:rgb(46,175,143);
 $secondaryBtnColor:rgb(27,205,172);//buy
 $placeholderTextColor: rgba(160, 160, 160, 0.103);
+$linksColor:rgb(24,144,255); 
 
 //LoginSignupHeader
 
@@ -15,6 +16,11 @@ $placeholderTextColor: rgba(160, 160, 160, 0.103);
     color: gray;
     font-style: italic;
   }
+}
+// Flex box container
+.login-flex-container {
+  display: flex;
+  justify-content: center;
 }
 
 //Left side(ads)
@@ -31,7 +37,8 @@ $placeholderTextColor: rgba(160, 160, 160, 0.103);
   }
 
 }
-//Login Form
+
+//Login Form(the right flexbox)
 .login-signup-right-side{
   margin-top: 3%;
   width: 45%;
@@ -40,32 +47,14 @@ $placeholderTextColor: rgba(160, 160, 160, 0.103);
 h1{
   margin-left: 25%;;
 }
-.login-container{
-  margin:0;
-}
-.login-form, .signup-form{
+
+@mixin login-signup-input-forms {
   input[type = text], input[type = password]{
-    padding:2%;
-    width:60%;
-    border-radius: 0 20px 20px 0;
-    border:none;
+    padding:3%;
+    width:65%;
+    border-radius: 20px;
     background-color: $placeholderTextColor;
     font-size: 20px;
-  }
-  input[type = text]:focus, input[type = password]:focus{
-    border:2px solid $navBarBackgroundColor;
-    border-radius: 20px;
-  }
-  input[type = submit]{
-    cursor: pointer;
-    padding:2% 1% 2% 1%;
-    background-color: $secondaryBtnColor;
-    border: none;
-    color:white;
-    margin: 2% 0 0 30%;
-    border-radius: 7px;
-    width: 15%;
-    font-size: 15px;
   }
   input::placeholder{
     font-style: italic;
@@ -73,29 +62,62 @@ h1{
   }
   .signup-link{
     border: none;
-    text-decoration: underline;
-    background: none;
     cursor: pointer;
-    font-size: 15px;
-    margin-top: 2%;
-  }
-  .input-icon{
-    padding:2.1%;
-    border-radius: 20px 0 0 20px;
-    background-color: $placeholderTextColor;
+    color: $linksColor;
   }
 }
-.login-flex-container {
-  display: flex;
-  justify-content: center;
+
+.login-form, .signup-form{
+@include login-signup-input-forms();
+
+.login-submit-btn{
+    cursor: pointer;
+    background-color: $secondaryBtnColor;
+    color:white;
+    font-weight: bold;
+    margin: 3% 0 0 18%;
+    width:30%;
+
+  }
 }
-
-
+.login-form-forgot{
+margin-left: 20%;
+color: $linksColor;
+}
+.authentication-error{
+  color:red;
+  font-weight: bold;
+}
 //for mobile device
 @media only screen and (max-width: 600px) {
+  // Flex box container
+  .login-flex-container {
+    display: block;
+    justify-content: center;
+  }
 
-  
+  .login-signup-left-side{
+    width: 100%;
+    border:none;
+    p{
+      padding:1%;
+    }
+    .icon{
+      padding:1%;
+    }
+
+  }
+  .login-signup-right-side{
+    margin-top: 3%;
+    width: 100%;
+    margin-left: 3%;
+  }
+  h1{
+    margin-left: 25%;;
+  }
+
 }
+
 //for tablet
 @media only screen and (max-width: 600px) {
   

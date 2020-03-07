@@ -28,13 +28,19 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 GRAPHENE = {
-    'SCHEMA':  os.path.join(BASE_DIR, 'schema'), # Where the Graphene schema lives
+    'SCHEMA':  'EthioStock.schema.schema', # Where the Graphene schema lives
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
-# Application definition
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
+AUTH_USER_MODEL = 'account.Account'
+
+# Application definition
 INSTALLED_APPS = [
     'follower',
     'businessowner',
@@ -45,9 +51,10 @@ INSTALLED_APPS = [
     'soldstock',
     'stock',
     'userreport',
-    'users',
+    'account',
     'watchlist',
     'graphene_django',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +64,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.contrib.auth.middleware.AuthenticationMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,7 +73,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000'
+# )
 ROOT_URLCONF = 'EthioStock.urls'
 
 TEMPLATES = [
@@ -94,7 +104,7 @@ WSGI_APPLICATION = 'EthioStock.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'pracdjango',
+        'NAME':'EthioStock',
         'USER':'postgres',
         'PASSWORD':'tsiyon',
         'HOST':'localhost',
