@@ -9,7 +9,7 @@ class Businessowner(models.Model):
     )
     website = models.URLField()
     category =  models.CharField( max_length=20,blank=True )
-    legality  = models.FileField()
+    legality  = models.ImageField(null =True, blank=True, upload_to="userImages")
 
     
 

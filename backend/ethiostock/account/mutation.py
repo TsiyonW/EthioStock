@@ -45,7 +45,9 @@ class CreateAccount(graphene.Mutation):
         )
         user.set_password(password)
         user.save()
-
+        if not user:
+            raise Exception("Can not create user!")
+        
         return CreateAccount(
             id          = user.id,
             username    = user.username,

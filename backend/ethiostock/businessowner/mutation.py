@@ -4,6 +4,8 @@ from businessowner.models import  Businessowner
 from django.db.models import Q
 from account.models import Account
 from account.types import AccountType
+from graphql_jwt.shortcuts import create_refresh_token, get_token
+from graphene_file_upload.scalars import Upload
 
 #creating business owner account
 class CreateBusinessownerAccount(graphene.Mutation):
@@ -21,6 +23,9 @@ class CreateBusinessownerAccount(graphene.Mutation):
     website     = graphene.String()
     category    = graphene.String()
     legality    = graphene.String()
+    success = graphene.Boolean()
+    token = graphene.String()
+    refresh_token = graphene.String()
     account     = graphene.Field(AccountType)
     user_type   = graphene.String()
     #supply arguments
@@ -37,8 +42,7 @@ class CreateBusinessownerAccount(graphene.Mutation):
         business    = graphene.String(required=True)
         website     = graphene.String(required=True)
         category    =  graphene.String(required=True)
-        legality    = graphene.String(required=True)
-
+        legality    = Upload()
     #populate the inputs to the database
     def mutate(self, info, username, password, email, last_name, first_name,
                 phoneNo, sex, subcity, woreda, business,
@@ -70,6 +74,9 @@ class CreateBusinessownerAccount(graphene.Mutation):
         user.set_password(password)
         user.save()
         businessowner.save()
+        
+        token = get_token(user)
+        refresh_token = create_refresh_token(user)
 
         #return the fields below to users
         return CreateBusinessownerAccount(
@@ -77,7 +84,7 @@ class CreateBusinessownerAccount(graphene.Mutation):
             business = businessowner.business, 
             website  = businessowner.website,
             category = businessowner.category,
-            legality = businessowner.legality,
+            legality = businessowner.legality.url,
             account  = businessowner.account,
             username = user.username,
             password = user.password,
@@ -88,7 +95,10 @@ class CreateBusinessownerAccount(graphene.Mutation):
             sex         = user.sex,
             subcity     = user.subcity,
             woreda      = user.woreda,
-            user_type   = user.user_type
+            user_type   = user.user_type,
+            token = token,
+            refresh_token = refresh_token,
+            success = True,
         )
 
 #update business account
@@ -114,7 +124,7 @@ class UpdateBusinessownerAccount(graphene.Mutation):
         woreda      = graphene.Int()    
         website     = graphene.String()
         category    = graphene.String()
-        legality    = graphene.String()  
+        legality    = graphene.Upload()  
         first_name  = graphene.String()
         last_name   = graphene.String()
         password    = graphene.String(required=True)  
@@ -152,7 +162,7 @@ class UpdateBusinessownerAccount(graphene.Mutation):
             last_name   = account.last_name,
             website     = businessowneraccount.website,
             category    = businessowneraccount.category,
-            legality    = businessowneraccount.legality,
+            legality    = businessowneraccount.legality.url,
             sex         = account.sex,
             subcity     = account.subcity,
             woreda      = account.woreda

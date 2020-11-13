@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,6 +34,12 @@ GRAPHENE = {
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
+GRAPHQL_JWT = {
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': timedelta(minutes=5),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+}
 AUTHENTICATION_BACKENDS = [
     'graphql_jwt.backends.JSONWebTokenBackend',
     'django.contrib.auth.backends.ModelBackend',
@@ -43,6 +50,7 @@ AUTH_USER_MODEL = 'account.Account'
 # Application definition
 INSTALLED_APPS = [
     'follower',
+    'comment',
     'businessowner',
     'investor',
     'post',
@@ -61,6 +69,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -104,11 +114,11 @@ WSGI_APPLICATION = 'EthioStock.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'EthioStock',
+        'NAME':'ethiostock1',
         'USER':'postgres',
         'PASSWORD':'tsiyon',
         'HOST':'localhost',
-        'PORT':5433
+        'PORT':5432
     }
 }
 
@@ -150,3 +160,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/userImages/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'userImages/')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'static'),
+)
+

@@ -16,3 +16,4 @@ class Stock(models.Model):
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    minAmountOfStockToBuy = models.IntegerField(default=1)

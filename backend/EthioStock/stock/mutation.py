@@ -17,28 +17,24 @@ class CreateStock(graphene.Mutation):
     sells  = graphene.Int()
     buys = graphene.Int()
     owner = graphene.Field(BusinessownerType)
+    minAmountOfStockToBuy = graphene.Int()
     class Arguments:
         price = graphene.Decimal(required = True)
         noOfStock = graphene.Int(required = True)
         openingDate = graphene.DateTime(required = True)
         closingDate = graphene.DateTime(required = True)
         description =graphene.String(required = True)
-        approved = graphene.Boolean()
-        closed = graphene.Boolean()
-        sells  = graphene.Int(required = True)
-        buys = graphene.Int(required = True)
-    def mutate(self, info, price, noOfStock, openingDate, closingDate,
-                description, sells, buys):
+        minAmountOfStockToBuy = graphene.Int(required = True)
+    def mutate(self, info, **kwargs):
         owner = Businessowner.objects.get(account_id = info.context.user.id) 
 
         stock = Stock(
-            price = price,
-            noOfStock = noOfStock,
-            openingDate = openingDate,
-            closingDate = closingDate,
-            description = description,
-            sells = sells,
-            buys = buys,
+            price = kwargs['price'],
+            noOfStock = kwargs['noOfStock'],
+            openingDate = kwargs['openingDate'],
+            closingDate = kwargs['closingDate'],
+            description = kwargs['description'],
+            minAmountOfStockToBuy = kwargs['minAmountOfStockToBuy'],
             owner = owner
         )
         stock.save()
@@ -54,7 +50,8 @@ class CreateStock(graphene.Mutation):
             closed = stock.closed,
             sells = stock.sells,
             buys = stock.buys,
-            owner = stock.owner
+            owner = stock.owner,
+            minAmountOfStockToBuy = stock.minAmountOfStockToBuy
         )
 class UpdateStock(graphene.Mutation):
     id = graphene.Int()

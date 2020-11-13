@@ -3,25 +3,23 @@ import gql from 'graphql-tag'
 
 export const CREATE_STOCK_MUTATION = gql`
 mutation CreateStock(
-    $buys: String!, 
-    $sells: String!, 
     $closingDate:DateTime!, 
     $description:String!
     $noOfStock:Int!, 
     $openingDate:DateTime!,
     $price:Decimal!,
-    $sells:Int!
+    $minAmountOfStockToBuy:Int!
+
     
     ) {
   createStock(
-      buys: $buys
-      sells: $sells
       closingDate: $closingDate
       description: $description
       noOfStock: $noOfStock
       openingDate: $openingDate
       price: $price
-      sells: $sells
+      minAmountOfStockToBuy:$minAmountOfStockToBuy
+
   ) {
       buys
       sells
@@ -30,6 +28,7 @@ mutation CreateStock(
       noOfStock
       openingDate
       price
+      minAmountOfStockToBuy
       sells
         owner{
             business
@@ -72,7 +71,7 @@ export const APPROVE_STOCK = gql`
     }
 `
 export const UPDATE_STOCK = gql`
-    mutation UpdateStock($id:Int!, closingDate:DateTime, openingDate:DateTime){
+    mutation UpdateStock($id:Int!, $closingDate:DateTime, $openingDate:DateTime){
         updateStock(id:$id){
             id
             closingDate

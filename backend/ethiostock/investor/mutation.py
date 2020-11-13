@@ -2,6 +2,7 @@ import graphene
 from account.models import Account
 from account.types import AccountType
 from investor.models import Investor
+from graphql_jwt.shortcuts import create_refresh_token, get_token
 
 
 #create investor 
@@ -19,6 +20,10 @@ class CreateInvestorAccount(graphene.Mutation):
     nationality = graphene.String()
     user_type   = graphene.String()
     account     = graphene.Field(AccountType)
+    success = graphene.Boolean()
+    token = graphene.String()
+    refresh_token = graphene.String()
+
     #supply arguments
     class Arguments:
         username    = graphene.String(required=True)
@@ -55,6 +60,8 @@ class CreateInvestorAccount(graphene.Mutation):
         user.save()
         
         investor.save()
+        token = get_token(user)
+        refresh_token = create_refresh_token(user)
 
         return CreateInvestorAccount(
                 id=investor.account_id,
@@ -67,7 +74,10 @@ class CreateInvestorAccount(graphene.Mutation):
                 subcity = user.subcity,
                 woreda = user.woreda,
                 user_type = user.user_type,
-                nationality = investor.nationality
+                nationality = investor.nationality, 
+                token = token,
+                refresh_token = refresh_token,
+                success = True,
         )
 
 
@@ -157,7 +167,6 @@ class DeleteInvestorAccount(graphene.Mutation):
             id = account.id,
             is_active = account.is_active
         )
-
 
 
 

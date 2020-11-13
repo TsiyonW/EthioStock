@@ -8,10 +8,11 @@ from django.utils import timezone
 
 class Query(graphene.ObjectType):
     myStock = graphene.List(StockType)
-    stockByBusiness = graphene.List(StockType)
+    stockByBusiness = graphene.List(StockType) or graphene.Field(StockType)
     stockByClosingDate = graphene.List(StockType)
     stockOpenToday = graphene.List(StockType)
     allStock = graphene.List(StockType)
+    getStockById = graphene.Field(StockType, stock_id = graphene.String())
 
     def resolve_myStock(self, info, **kwargs):
         user = info.context.user
@@ -19,6 +20,13 @@ class Query(graphene.ObjectType):
             raise Exception("Not Authorized")
         owner = Businessowner.objects.get(account_id = user.id)
         return Stock.objects.filter(owner = owner)
+    def resolve_getStockById(self,info,stock_id):
+        user = info.context.user
+        
+        if(user.is_anonymous):
+            raise Exception("Not Authorized")
+        
+        return Stock.objects.get(id = stock_id)
         
     def resolve_stockByBusiness(self, info, **kwargs):
         user = info.context.user

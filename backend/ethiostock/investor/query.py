@@ -18,17 +18,16 @@ class Query(graphene.ObjectType):
         user =info.context.user
         if user.is_anonymous:
             raise Exception('Not logged in!')
-        return Investor.get(id = investor_id)
+        return Investor.objects.get(id = investor_id)
 
     def resolve_myInvestorAccount(self,info,**kwargs):
         user =info.context.user
         if user.is_anonymous:
             raise Exception('Not logged in!')
+        elif user.user_type == "Business owner":
+            raise Exception("You are a businessowner not an investor")
 
         account = Account.objects.get(id = user.id) 
         investor = Investor.objects.get(account_id = user.id)
             
         return account, investor
-
-
-

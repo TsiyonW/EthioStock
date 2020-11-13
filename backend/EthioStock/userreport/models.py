@@ -1,16 +1,15 @@
 from django.db import models
 from investor.models import Investor
+from account.models import Account
 
 class UserReport(models.Model):
     reportedBy = models.ForeignKey(
         Investor,
-        related_name='reportedByUserId',
         on_delete = models.DO_NOTHING
     )
-    reportedUserId = models.ForeignKey(
-        Investor,
-        related_name='reportedUserId',
+    reportedUser = models.ForeignKey(
+        Account,
         on_delete = models.DO_NOTHING
     )
     reason = models.TextField()
-    reportCount = models.IntegerField()
+    reportDate = models.DateTimeField(auto_now_add=True)

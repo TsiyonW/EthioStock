@@ -5,6 +5,17 @@ export const LOGIN_MUTATION = gql`
 mutation LoginMutation($email: String!, $password: String!) {
   tokenAuth(email: $email, password: $password) {
     token
+    user{
+      id
+      userType
+      firstName
+      lastName
+      phoneNo
+      subcity
+      woreda
+      email
+      username
+    }
   }
 }
 `
@@ -28,11 +39,11 @@ export const SIGNUP_BUSINESSOWNER = gql`
     $phoneNo:String!
     $sex:String!
     $subcity:String!
-    $woreda:String!
+    $woreda:Int!
     $business:String!
     $website:String!
     $category:String!
-    $legality:String!
+    $legality:Upload!
 
   ){
     createBusinessowner(
@@ -45,24 +56,74 @@ export const SIGNUP_BUSINESSOWNER = gql`
       phoneNo:$phoneNo
       sex:$sex
       woreda:$woreda
+      business:$business
+      website:$website
+      category:$category
+      legality:$legality
       
     ){
-      username
+      id
+      business
+      category
       email
-      subcity
-      lastName
       firstName
+      lastName
       phoneNo
       sex
-      woreda
+      subcity
+      userType
+      username
+      website
+      woreda  
+      userType 
+      token
+      success
+      refreshToken
+      legality
     }
   }
 `
 
-// export const SIGNUP_INVESTOR = gql`
-//   mutation SignupInvestor(){
-//     createInvestor(){
-      
-//     }
-//   }
-// `
+export const SIGNUP_INVESTOR = gql`
+  mutation SignupInvestor(
+    $nationality:String!
+    $email:String!
+    $firstName:String!
+    $lastName:String!
+    $password:String!
+    $phoneNo:String!
+    $sex:String!
+    $subcity:String!
+    $username:String!
+    $woreda:Int!
+    
+    
+  ){
+    createInvestor( nationality:$nationality
+      email:$email
+      lastName:$lastName
+      firstName:$firstName
+      password:$password
+      phoneNo:$phoneNo
+      sex:$sex
+      subcity:$subcity
+      username:$username
+      woreda:$woreda){
+        id
+        nationality
+        email
+        firstName
+        lastName
+        token
+        success
+        refreshToken
+        phoneNo
+        sex
+        subcity
+        userType
+        username
+        woreda
+     
+    }
+  }
+`

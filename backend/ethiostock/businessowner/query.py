@@ -24,10 +24,9 @@ class Query(graphene.ObjectType):
         if(user.is_anonymous):
             raise Exception('Not logged in!')
         elif(user.user_type == "Business Owner"):
-            account = Account.objects.get(id = user.id) 
             business = Businessowner.objects.get(account_id = user.id)
             
-            return account, business
+            return business
         else:
             raise Exception('Not authorized to get the businessowner account')
 

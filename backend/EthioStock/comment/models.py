@@ -2,7 +2,7 @@ from django.db import models
 from investor.models import Investor
 from post.models import Post
 
-class Reaction(models.Model):
+class Comment(models.Model):
     post = models.ForeignKey(
         Post,
         on_delete=models.DO_NOTHING
@@ -12,5 +12,5 @@ class Reaction(models.Model):
         Investor,
         on_delete = models.DO_NOTHING
     )
-    isLike = models.BooleanField()
-    reactionTime = models.DateTimeField()
+    comment = models.TextField()
+    commentedTime = models.DateTimeField(auto_now_add=True)
