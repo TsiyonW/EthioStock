@@ -26,7 +26,20 @@ class CreateStock(graphene.Mutation):
         description =graphene.String(required = True)
         minAmountOfStockToBuy = graphene.Int(required = True)
     def mutate(self, info, **kwargs):
-        owner = Businessowner.objects.get(account_id = info.context.user.id) 
+        user = info.context.user
+        if(user.is_anonymous):
+            raise Exception("You must login to create a stock!")
+        owner = Businessowner.objects.get(account_id = user.id) 
+        if(not owner.is_valid_account):
+            raise Exception("Can not create stock since your account has not been approved")
+        
+        # initiatedStock =  Stock.objects.get(owner_id = 1)
+            
+        # if(not initiatedStock):
+        #     print("we are here")
+        # if(initiatedStock and not initiatedStock.closed):
+        #     raise Exception("You have a stock that is not closed please edit or close before creating.")
+
 
         stock = Stock(
             price = kwargs['price'],
@@ -77,6 +90,9 @@ class UpdateStock(graphene.Mutation):
         sells  = graphene.Int()
         buys = graphene.Int()
     def mutate(self,info,**kwargs):
+        user = info.context.user
+        if(user.is_anonymous):
+            raise Exception("You must login to create a stock!")
         user  = Businessowner.objects.get(account_id = info.context.user.id) 
         id = kwargs['id']
         stock   = Stock.objects.get(id = id)
@@ -88,7 +104,7 @@ class UpdateStock(graphene.Mutation):
         stock.closingDate= kwargs['closingDate'] if "closingDate" in kwargs else stock.closingDate
         stock.description= kwargs['description'] if "description" in kwargs else stock.description
         stock.approved= kwargs['approved'] if "approved" in kwargs else stock.approved
-        stock.approved= kwargs['closed'] if "closed" in kwargs else stock.closed
+        stock.closed= kwargs['closed'] if "closed" in kwargs else stock.closed
         stock.sells= kwargs['sells'] if "sells" in kwargs else stock.sells
         stock.buys= kwargs['buys'] if "buys" in kwargs else stock.buys
         
