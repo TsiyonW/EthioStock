@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/styles.scss";
+import "../../styles/styles.scss";
 // import headerImage from '../img/login_header.PNG'
 
 class LoginSignupHeader extends React.Component {

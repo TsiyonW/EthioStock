@@ -1,4 +1,4 @@
-import {AUTH_TOKEN} from './constants'
+import {AUTH_TOKEN, STATE} from './constants'
 import decode from 'jwt-decode';
 
 class AuthService{
@@ -16,6 +16,7 @@ class AuthService{
     // returns whether there is an authenticated user or not
     isAuthenticated(){
         const token = this.getToken();
+        
         // return !!token && !this.isTokenExpired(token)
         return !!token
     }
@@ -44,6 +45,7 @@ class AuthService{
     // signs a user out(removes the token from the local storage).
     logOut(){
         localStorage.removeItem(AUTH_TOKEN)
+        localStorage.removeItem(STATE)
 
     }
 

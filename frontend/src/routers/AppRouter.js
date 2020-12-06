@@ -1,47 +1,38 @@
 import React from "react";
-import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
-
-import Login from "../components/Login";
-import SignupInvestor from "../components/SignupInvestor";
-import SignupBusiness from "../components/SignupBusinessowner";
-import CreateStock from "../components/CreateStock";
-import Homepage from '../components/Homepage'
-import PublicHomepage from '../components/PublicHomepage'
-import Profile from '../components/Profile'
-import { AUTH_TOKEN } from "../constants";
-
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+import Login from "../components/Account/Login";
+// import SignupUsers  from '../components/SignupUsers'
+// import Homepage from '../components/Homepage'
+import PublicHomepage from '../components/Account/PublicHomepage' 
+import RegisterUser from '../components/Account/RegisterUser'
+import Profile from '../components/Account/Profile'
+import ViewStock from '../components/Stock/ViewStock';
+import RegistrationSuccess from '../components/Account/RegistrationSuccess'
+import VerifyAccount from '../components/Account/VerifyAccount'
+import ForgetPassword from '../components/Account/ForgetPassword'
+import ResetPassword from "../components/Account/ResetPassword";
+import ChangePassword from '../components/Account/ChangePassword'
 const NotFoundPage = () => (
   <div>
     <div>404! PAGE NOT FOUND</div>
   </div>
 );
-
-const authToken = localStorage.getItem(AUTH_TOKEN);
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      authToken ? <Component {...props} /> : <Redirect to="/login" />
-    }
-  />
-);
-
 const AppRouter = () => (
   <div>
-    {/* <Header/> */}
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={PublicHomepage} />
-        <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/createstock" component={CreateStock} />
-        <PrivateRoute path="/homepage" component={Homepage} />
-        
-        <PrivateRoute path="/profile" component={Profile} />
-        <Route exact path='/signupinvestor' component={SignupInvestor}/>
-        <Route exact path='/signupbusiness' component={SignupBusiness}/>
-        
-        
+          <Route exact path="/" component={PublicHomepage} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={RegisterUser} />
+          <Route exact path="/createaccountsuccess" component={RegistrationSuccess}/>
+          <Route exact path="/activate/:token" component = {VerifyAccount}/>
+          
+          <Route path='/forgetpassword' component={ForgetPassword}/> 
+          <Route path="/resetpassword/:token" component={ResetPassword} />
+          <Route path="/changepassword" component={ChangePassword}/>
+          <Route path="/profile" component={Profile} />
+          <Route path="/viewstock" component={ViewStock} />
+
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
