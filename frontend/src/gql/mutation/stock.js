@@ -1,5 +1,5 @@
 
-import gql from 'graphql-tag'
+import {gql} from '@apollo/client'
 
 export const CREATE_STOCK_MUTATION = gql`
 mutation CreateStock(
@@ -9,7 +9,7 @@ mutation CreateStock(
     $openingDate:DateTime!,
     $price:Decimal!,
     $minAmountOfStockToBuy:Int!
-
+    $serviceChargePercentage:Int!
     
     ) {
   createStock(
@@ -19,8 +19,9 @@ mutation CreateStock(
       openingDate: $openingDate
       price: $price
       minAmountOfStockToBuy:$minAmountOfStockToBuy
-
+      serviceChargePercentage:$serviceChargePercentage
   ) {
+      id
       buys
       sells
       closingDate
@@ -30,8 +31,11 @@ mutation CreateStock(
       price
       minAmountOfStockToBuy
       sells
+      success
+      message
         owner{
-            business
+            id
+            businessName
             account{
                 email
                 username
