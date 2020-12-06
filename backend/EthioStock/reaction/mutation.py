@@ -1,71 +1,90 @@
 import graphene
 from graphene_django import DjangoObjectType
-from investor.models import Investor
-from investor.types  import InvestorType
 from reaction.models import Reaction
 from reaction.types import ReactionType
 from post.types import PostType
 from post.models import Post
+from account.models import Account
 from django.db.models import Q
 
 class Like(graphene.Mutation):
-    id = graphene.Int()
-    post = graphene.Field(PostType)
-    investor = graphene.Field(InvestorType)
-    isLike = graphene.Boolean()
+    reactionLiked = graphene.Field(ReactionType)
     class Arguments:
         postId = graphene.Int(required = True)
 
-    def mutate(self,info,postId):
+    def mutate(self,info,**kwargs):
         user = info.context.user
         if(user.is_anonymous):
             raise Exception("Must Login First")
      
-        postId = kwargs['id']
-        post = Post.objects.all(id = postId)
-        investor  = Investor.objects.all(account_id = user.id)
-        reaction = Reaction.objects.filter(Q(investor = investor) & Q(post = post))
-        if(reaction):
-            reaction.isLike = True
+        postId = kwargs['postId']
+        post = Post.objects.get(id = postId)
+        reactedBy  = Account.objects.get(id = user.id)
+        reactionExists = Reaction.objects.filter(Q(reactedby = reactedBy) & Q(post = post)).exists()
+        if(reactionExists):
+            reactions = Reaction.objects.filter(Q(reactedby = reactedBy) & Q(post = post))
+            for reaction in reactions:
+                if(reaction.isLike):
+                    reaction.isLike = False
+                    reaction.save()
+                else:
+                    reaction.isLike = True
+                    reaction.isDislike = False
+                    reaction.save()
+        
+        else:
+            reaction = Reaction(
+                post = post, 
+                reactedby = reactedBy,
+                isLike = True,
+                isDislike = False
+            )
             reaction.save()
-            
-        isLike = True
-
-        reaction = Reaction(
-            post = post, 
-            investor = investor,
-            isLike = isLike
-        )
-        reaction.save()
 
         return Like(
-            id = reaction.id,
-            post = reaction.post,
-            investor = reaction.investor,
-            isLike = reaction.isLike
-
+            reactionLiked = reaction
         )
 
-class DisLike(graphene.Mutation):
-    reaction = graphene.Field(ReactionType)
+class Dislike(graphene.Mutation):
+    reactionDisliked = graphene.Field(ReactionType)
     class Arguments:
-        postId = graphene.Int()
-    def mutate(self,info, postId):
+        postId = graphene.Int(required = True)
+
+    def mutate(self,info,**kwargs):
         user = info.context.user
         if(user.is_anonymous):
             raise Exception("Must Login First")
-        investor = Investor.objects.get(account_id = user.id)
+        print("here we are")
+        postId = kwargs['postId']
         post = Post.objects.get(id = postId)
-        reaction = Reaction.objects.filter(
-            Q(investor = investor) & Q(post = post)
+        reactedBy  = Account.objects.get(id = user.id)
+        reactionExists = Reaction.objects.filter(Q(reactedby = reactedBy) & Q(post = post)).exists()
+        #if reacted previously toggle
+        if(reactionExists):
+            reactions = Reaction.objects.filter(Q(reactedby = reactedBy) & Q(post = post))
+            for reaction in reactions:
+                if(reaction.isDislike):
+                    reaction.isDislike = False
+                    reaction.save()
+                else:
+                
+                    reaction.isDislike = True
+                    reaction.isLike = False
+                    reaction.save()
+        else:
+            reaction = Reaction(
+                post = post, 
+                reactedby = reactedBy,
+                isLike = False,
+                isDislike = True
             )
-        reaction.isLike = False
-        reaction.save()
+            reaction.save()
 
-        return DisLike(
-            reaction = reaction
+        return Dislike(
+            reactionDisliked = reaction
         )
+
 
 class Mutation(graphene.ObjectType):
     like = Like.Field()
-    dislike = DisLike.Field()
+    dislike = Dislike.Field()
