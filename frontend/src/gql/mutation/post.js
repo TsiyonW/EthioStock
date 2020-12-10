@@ -1,9 +1,12 @@
 
-import gql from 'graphql-tag'
+import {gql} from '@apollo/client'
 
 export const CREATE_POST_MUTATION = gql`
 mutation CreatePost($description:String!, $title:String!, $image:Upload){
     createPost(description:$description, title:$title, image:$image){
+        
+        success
+        message
         post{
             id
             title
@@ -11,7 +14,8 @@ mutation CreatePost($description:String!, $title:String!, $image:Upload){
             date
             owner{
                 id
-                business
+                businessName
+                
             }
         }
     }

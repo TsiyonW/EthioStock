@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 from graphene_file_upload.scalars import Upload
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'srlztc2pq0@4n#na7b^qothpbgt2)bp9*$v8##702rqkx)5q0j'
+SECRET_KEY = 'ii)y7*5waz9pure&m&q6*xpo15v#b&7!+9!(dnorf4+0tto*8q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,12 +61,19 @@ GRAPHQL_AUTH = {
     'ALLOW_LOGIN_NOT_VERIFIED':False,
     # 'EMAIL_FROM':getattr('django_settings', "DEFAULT_FROM_EMAIL", "ethiostock3@gmail.com")
 }
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ethiostock3@gmail.com'
+EMAIL_HOST_PASSWORD = 'ethiostock3hht' #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'default from email'
 
 GRAPHQL_JWT = {
     'JWT_VERIFY_EXPIRATION': True,
-    # 'JWT_EXPIRATION_DELTA': timedelta(minutes=5),
-    # 'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
-    # "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    'JWT_EXPIRATION_DELTA': timedelta(minutes=60),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_ALLOW_ANY_CLASSES": [
         "graphql_auth.mutations.Register",
         "graphql_auth.mutations.VerifyAccount",
@@ -74,8 +82,8 @@ GRAPHQL_JWT = {
         "graphql_auth.mutations.PasswordReset",
         "graphql_auth.mutations.ObtainJSONWebToken",
         "graphql_auth.mutations.VerifyToken",
-        # "graphql_auth.mutations.RefreshToken",
-        # "graphql_auth.mutations.RevokeToken",
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
     ],
 }
 AUTHENTICATION_BACKENDS = [

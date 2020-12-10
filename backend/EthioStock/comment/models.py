@@ -1,5 +1,5 @@
 from django.db import models
-from investor.models import Investor
+from account.models import Account
 from post.models import Post
 
 class Comment(models.Model):
@@ -8,8 +8,8 @@ class Comment(models.Model):
         on_delete=models.DO_NOTHING
 
     )
-    investor = models.ForeignKey(
-        Investor,
+    commentedBy = models.ForeignKey(
+        Account,
         on_delete = models.DO_NOTHING
     )
     comment = models.TextField()

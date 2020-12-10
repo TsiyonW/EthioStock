@@ -7,197 +7,189 @@ from account.types import AccountType
 from graphql_jwt.shortcuts import create_refresh_token, get_token
 from graphene_file_upload.scalars import Upload
 
+from graphql_auth import mutations
 #creating business owner account
 class CreateBusinessownerAccount(graphene.Mutation):
     id = graphene.Int()
-    username    = graphene.String()
-    password    = graphene.String()
-    email       = graphene.String()
-    last_name   = graphene.String()
-    first_name  = graphene.String()
-    phoneNo     = graphene.String()
-    sex         = graphene.String() 
-    subcity     = graphene.String() 
-    woreda      = graphene.Int()    
-    business    = graphene.String()
+    business_name    = graphene.String()
+    account     = graphene.Field(AccountType)
     website     = graphene.String()
     category    = graphene.String()
-    legality    = graphene.String()
+    is_valid_account = graphene.String()
+    legality = graphene.String()
+    account_linked = graphene.Boolean()
+    profile_pic = Upload()
+    message = graphene.String()
     success = graphene.Boolean()
-    token = graphene.String()
-    refresh_token = graphene.String()
-    account     = graphene.Field(AccountType)
-    user_type   = graphene.String()
     #supply arguments
     class Arguments:
-        username    = graphene.String(required=True)
-        password    = graphene.String(required=True)
-        email       = graphene.String(required=True)
-        last_name   = graphene.String(required=True)
-        first_name  = graphene.String(required=True)
-        phoneNo     = graphene.String(required=True)
-        sex         = graphene.String(required=True) 
-        subcity     = graphene.String(required=True) 
-        woreda      = graphene.Int(required=True) 
-        business    = graphene.String(required=True)
-        website     = graphene.String(required=True)
+        business_name   = graphene.String(required=True)
+        website     = graphene.String()
         category    =  graphene.String(required=True)
         legality    = Upload()
-    #populate the inputs to the database
-    def mutate(self, info, username, password, email, last_name, first_name,
-                phoneNo, sex, subcity, woreda, business,
-                website, legality, category):
-        user_type = "Business Owner"
-        user =  Account(
-            username    =username,
-            password    = password,
-            email       = email,
-            subcity     = subcity,
-            last_name   = last_name,
-            first_name  = first_name,
-            phoneNo     = phoneNo,
-            sex         = sex,
-            woreda      = woreda,
-            user_type = user_type
-        )
+        profile_pic = Upload()
 
+    #populate the inputs to the database
+    def mutate(self, info, **kwargs):
+        user = info.context.user
+        if(user.is_anonymous):
+            return CreateBusinessownerAccount(
+                success=False,
+                message="Not Logged in!")
+
+        if(user.user_type != 'Businessowner'):
+            return CreateBusinessownerAccount(
+               success=False,
+                message="Cannot create a businessowner account")
+
+        userExists = Account.objects.filter(id = user.id).exists()
+        if(not userExists):
+            return CreateBusinessownerAccount(
+                success=False,
+                message="User doesnt exist")
+        
+        user = Account.objects.get(id =  user.id)
+        businessAccountExists = Businessowner.objects.filter(account_id =user.id)
+        if(businessAccountExists):
+            return CreateBusinessownerAccount(
+                success=False,
+                message="Business Account Exists Try updating instead"
+            )
+        business_name = kwargs['business_name']
+        website    = kwargs['website'] if 'website' in kwargs else ''
+        category   = kwargs['category'] if 'category' in kwargs else ''
+        legality   = kwargs['legality'] if 'legality' in kwargs else ''
+        profile_pic = kwargs['profile_pic'] if 'profile_pic'  in kwargs else ''
+        
         businessowner = Businessowner(
-            business  = business, 
+            business_name  = business_name, 
+            account   = user,
             website   = website,
             category  = category,
             legality  = legality,
-            account   = user
+            profile_pic =profile_pic,
         )
         
         # result = Account.object.all().filter(Q(id = 49)|Q(username = "watever"))
-        # save the user's account
-        user.set_password(password)
-        user.save()
-        businessowner.save()
         
-        token = get_token(user)
-        refresh_token = create_refresh_token(user)
+        businessowner.save()
+        #if business account created successfully make associate account true
+        if(businessowner):
+            user.account_linked = True
+            user.save()
 
         #return the fields below to users
         return CreateBusinessownerAccount(
             id = businessowner.account_id,
-            business = businessowner.business, 
+            business_name = businessowner.business_name, 
             website  = businessowner.website,
             category = businessowner.category,
-            legality = businessowner.legality.url,
             account  = businessowner.account,
-            username = user.username,
-            password = user.password,
-            email    = user.email,
-            first_name  = user.first_name,
-            last_name   = user.last_name,
-            phoneNo     = user.phoneNo,
-            sex         = user.sex,
-            subcity     = user.subcity,
-            woreda      = user.woreda,
-            user_type   = user.user_type,
-            token = token,
-            refresh_token = refresh_token,
+            is_valid_account = businessowner.is_valid_account,
             success = True,
+            message="Business account created successfully"
         )
 
 #update business account
 class UpdateBusinessownerAccount(graphene.Mutation):
     #user can update the following fields
-    email       = graphene.String()
-    sex         = graphene.String() 
-    subcity     = graphene.String() 
-    woreda      = graphene.Int()    
     website     = graphene.String()
     category    = graphene.String()
     legality    = graphene.String()
-    first_name  = graphene.String()
-    last_name   = graphene.String()
-    password    = graphene.String()
-
+    business_name    = graphene.String()
+    success     = graphene.Boolean()
+    message     = graphene.String()
+    profile_pic = Upload()
     #let the user supply one of the following but the password is required
     class Arguments:
         
-        email       = graphene.String()
-        sex         = graphene.String() 
-        subcity     = graphene.String() 
+        business_name     = graphene.String() 
         woreda      = graphene.Int()    
         website     = graphene.String()
         category    = graphene.String()
-        legality    = graphene.Upload()  
-        first_name  = graphene.String()
-        last_name   = graphene.String()
-        password    = graphene.String(required=True)  
+        legality    = Upload()
+        profile_pic = Upload()
 
     def mutate(self,info,**kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception("Must login first")
-        elif(user.user_type == "Investor"):
-            raise Exception("only for Business owners")
-        
-
+            return UpdateBusinessownerAccount(
+                success = False, 
+                message = "Must login first"
+            )
+        if(user.user_type != "Investor"):
+            return UpdateBusinessownerAccount(
+                success = False, 
+                message = "only for Business owners"
+            )
         account = Account.objects.get(id = user.id)
-        businessowneraccount = Businessowner.objects.get(account_id = user.id)
+        if (account.id != user.id):
+            return UpdateBusinessownerAccount(
+                success = False, 
+                message = "Can only update your account"
+            )
 
-        password = kwargs['password']
-        account.email       = kwargs['email'] if "email" in kwargs else user.email
-        account.sex         = kwargs['sex'] if 'sex' in kwargs else user.sex
-        account.subcity     = kwargs['subcity'] if 'subcity' in kwargs else user.subcity
-        account.woreda      = kwargs['woreda'] if 'woreda' in kwargs else user.woreda
-        account.first_name  = kwargs['first_name'] if 'first_name' in kwargs else user.first_name
-        account.last_name   = kwargs['last_name'] if 'last_name' in kwargs else user.last_name
+        businessowneraccountExists = Businessowner.objects.filter(account_id = user.id)
+        if(not businessowneraccountExists):
+            return UpdateBusinessownerAccount(
+                success = False, 
+                message = "Business account doesn't exist"
+            )
+
+        businessowneraccount = Businessowner.objects.get(account_id = user.id)
+        
         businessowneraccount.website    = kwargs['website'] if 'website'  in kwargs else businessowneraccount.website
         businessowneraccount.category   = kwargs['category'] if 'category' in kwargs else businessowneraccount.category
         businessowneraccount.legality   = kwargs['legality'] if 'legality' in kwargs else businessowneraccount.legality
-        
-        account.set_password(password)
-        account.save()
+        businessowneraccount.profile_pic   = kwargs['profile_pic'] if 'profile_pic' in kwargs else businessowneraccount.profile_pic
+        businessowneraccount.business_name   = kwargs['business_name'] if 'business_name' in kwargs else businessowneraccount.business_name
         businessowneraccount.save()
-
+        
 
         return UpdateBusinessownerAccount(
-            email       = account.email,
-            first_name  = account.first_name,
-            last_name   = account.last_name,
+            account_id       = account.id,
             website     = businessowneraccount.website,
             category    = businessowneraccount.category,
-            legality    = businessowneraccount.legality.url,
-            sex         = account.sex,
-            subcity     = account.subcity,
-            woreda      = account.woreda
+            legality    = businessowneraccount.legality,
+            business_name    = businessowneraccount.business_name, 
+            success = True,
+            message = "Businesss updated successfully"
+            )
 
-        )
-
-#no account is deleted just be inactive
-class DeleteBusinessownerAccount(graphene.Mutation):
-    id =graphene.Int()
-    is_active = graphene.Boolean()
-
-    class Arguments:
-        id = graphene.Int()
-
-    def mutate(self,info,**kwargs):
+class DeleteMyBusinessownerAccount(graphene.Mutation):
+    deletedAccount = graphene.Field(AccountType)
+    
+    def mutate(self,info,account_id):
         user = info.context.user
-        if(user.is_anonymous):
-            raise Exception("Login first")
+        if user.is_anonymous:
+            return UpdateBusinessownerAccount(
+                success = False, 
+                message = "Must login first"
+            )
+        userExists = Account.objects.filter(id = user.id).exists()
+        if(not userExists):
+            return CreateBusinessownerAccount(
+                success=False,
+                message="User doesnt exist")
 
-        if(user.user_type== 'Investor'):
-            raise Exception("Investors can't delete Business account")
+        accountToBeDeleted = Account.objects.get(id = user.id)
+        if (accountToBeDeleted.id != user.id):
+            return UpdateBusinessownerAccount(
+                success = False, 
+                message = "Can only delete your account"
+            )
+            
+        accountToBeDeleted.is_active = False
+        accountToBeDeleted.save()
+        return DeleteMyBusinessownerAccount(
+            deletedAccount = accountToBeDeleted,
+            success = True,
+            message = "Bussiness owner account deactivated"
 
-        account = Account.objects.get(pk=kwargs["id"])
-        account.is_active = False
-        account.save()
-        # or we could just delete the account using account.delete()
-
-        return DeleteBusinessownerAccount(
-            id = account.id,
-            is_active = account.is_active
         )
-
 
 
 class Mutation(graphene.ObjectType):
     create_businessowner = CreateBusinessownerAccount.Field()
     update_businessowner = UpdateBusinessownerAccount.Field()
-    delete_businessowner = DeleteBusinessownerAccount.Field()
+    delete_businessowner = DeleteMyBusinessownerAccount.Field()

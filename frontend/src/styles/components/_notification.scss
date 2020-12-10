@@ -1,6 +1,26 @@
-.notification-container{
-    width: 35%;
-    color: blue;
+.notifications-container{
+    position: absolute;
+    right:1%;
+    top:8%;
+    background-color: white;
+    border-color: black;
+    border-width: 20px;
+    width: 25%;
+}
+.bell-icon{
+    padding-right: 10px;
+}
+.notification-header{
+    margin-top:5%;
+    font-size: 20px;
+    text-align: center;
+}
+.notification-contents{
+    
+    border-top:1px solid lightgray;
+    padding-top:30px;
+    width:90%;
+    margin:auto;
 }
 .notification-text{
     width: 80%;
@@ -8,9 +28,6 @@
     margin:  5%;
 }
 
-.notification-flex-box{
-    display: flex;
-}
 .single-notification{
     background-color: white;
     border-bottom: 1px solid gray;
@@ -25,6 +42,9 @@
 .notification-close-btn{
     border: none;
     background-color: white;
+}
+.single-comment-container{
+    color:black;
 }
 @media only screen and (max-width: 760px) {
     .notification-container{

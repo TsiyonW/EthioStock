@@ -21,6 +21,7 @@ import reaction.mutation
 import reaction.query
 import admina.mutation
 import admina.query
+
 import businessowner.subscription
 import investor.subscription
 
@@ -51,7 +52,7 @@ class AuthMutation(graphene.ObjectType):
     # django-graphql-jwt inheritances
     token_auth = mutations.ObtainJSONWebToken.Field()
     verify_token = mutations.VerifyToken.Field()
-    # refresh_token = mutations.RefreshToken.Field()
+    refresh_token = mutations.RefreshToken.Field()
     # revoke_token = mutations.RevokeToken.Field()
 
 
@@ -63,6 +64,7 @@ class Query(businessowner.query.Query,
         watchlist.query.Query,
         admina.query.Query,
         # comment.query.Query,
+        userreport.query.Query,
         post.query.Query,
         MeQuery,
         graphene.ObjectType
