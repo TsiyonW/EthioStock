@@ -21,7 +21,7 @@ class Sidebar extends Component{
                 <div className="user-profile">
 
                     <img src={userIcon} alt="userIcon"/>
-                    <p>{user.firstName}</p>
+                    <p>{user.email}</p>
                 </div>
                 <div className="sidebar-menu">
                     <br/>

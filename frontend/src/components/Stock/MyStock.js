@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import userIcon from '../../img/usericon.png';
-import {Icon} from 'antd';
+//import {Icon} from 'antd';
 class MyStock extends Component{
 
     render(){
@@ -14,7 +14,7 @@ class MyStock extends Component{
                         <td>GRAPH</td>
                         <td>{myStock.sell}</td>
                         <td>{myStock.buy}<br/><br/>
-                            <button className="sell-btn"><Icon type="double-right" className="bold-icon"/>Sell</button>
+                            <button className="sell-btn">Sell</button>
                         </td>
                     </tr>
                     

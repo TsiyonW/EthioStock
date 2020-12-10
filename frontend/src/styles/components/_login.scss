@@ -5,12 +5,18 @@ $placeholderTextColor: rgba(160, 160, 160, 0.103);
 $linksColor:rgb(24,144,255); 
 
 //LoginSignupHeader
+.login-container{
+  margin-top: 10%;  
+  
+     
+ }
 
 .login-signup-head{
   text-align: center;
   .main-header{
     font-weight: bolder;
     font-size: 50px;
+    color:rgb(46,175,143) ;
   }
   .sub-header{
     color: gray;
@@ -21,13 +27,14 @@ $linksColor:rgb(24,144,255);
 .login-flex-container {
   display: flex;
   justify-content: center;
+
 }
 
 //Left side(ads)
 .login-signup-left-side{
   margin: 5% 0 0 15%;
   width: 35%;
-  border-right: solid 1px gray;
+  border-right: solid 3px gray;
   p{
     padding:1%;
     font-size: 20px;
@@ -40,9 +47,9 @@ $linksColor:rgb(24,144,255);
 
 //Login Form(the right flexbox)
 .login-signup-right-side{
-  margin-top: 3%;
-  width: 45%;
-  margin-left: 3%;
+  margin-top: 5%;
+  width: 35%;
+  margin-left: 5%;
 }
 h1{
   margin-left: 25%;;

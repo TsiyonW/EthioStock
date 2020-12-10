@@ -1,29 +1,47 @@
 .homepage-header{
     position: relative;
     width: auto;
+ 
     
 }
+
+
+
+
 .posts-container{
     position:absolute;
-    top:18%;
+    top:25%;
     margin-left:10%;
     width: 60%;
-    border-color: red;
+   // border-color: red;
     border-width: 30px;
     overflow: auto;
     background-color: white;
 }
 .post-title{
-    font-weight: bolder;
+    font-weight: normal;
     padding:2%;
+   
+  //  background-color: red;
 
 }
 .post-title-container{
     padding:2%;
+    background-color: whitesmoke;
+    
+   
 }
-.post-description, .post-likes, .post-comments {
-    width:80%;
+.post-description, .post-likes  {
+    width:90%;
     margin:auto;
+    margin-top:1%;
+ 
+}
+.post-comments{
+    width:90%;
+    margin:auto;
+    font-style: italic;
+
 }
 .post-description{
     clear:left;
@@ -36,6 +54,7 @@
 }
 .delete-icon, .edit-icon{
     margin-right:1%;
+   
 }
 .single-post-container{
     border: 1px solid lightgray;
@@ -45,14 +64,25 @@
 .post-header-title{
     float: left;
     width: 70%;
+   // background-color: red;
 }
 
-.post-header-commands li{
+.post-header-commands {
+    background-color:whitesmoke;
+    height: 20%;
+    li{
     display: inline;
     padding:0% 3%;
-    
-}
+   
+}}
 .post-header-commands ul{  
     margin-top:2%;
     padding:2.5%;
 }
+.post-commenting-spot{
+    width: 90%;
+    margin-left: 5%;
+
+   
+}
+ 
