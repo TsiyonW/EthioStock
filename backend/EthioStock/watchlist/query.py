@@ -8,6 +8,6 @@ class Query(graphene.ObjectType):
     def resolve_myWatchlist(self,info,**kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception("Not Logged in!")
+            return None
         account = Account.objects.get(id = user.id)
-        return Watchlist.objects.get(owner = account.id)
+        return Watchlist.objects.filter(account_id = account.id)

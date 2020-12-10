@@ -1,15 +1,13 @@
 import graphene
 from .models import Follower
+from .types import FollowerType
 from businessowner.types import BusinessownerType
 from businessowner.models import Businessowner
 from investor.types import InvestorType
 from investor.models import Investor
 
 class Follow(graphene.Mutation):
-    id = graphene.Int()
-    business = graphene.Field(BusinessownerType)
-    investor = graphene.Field(InvestorType)
-
+    followed = graphene.Field(FollowerType)
     class Arguments:
         businessId = graphene.Int(required = True)
 
@@ -17,36 +15,40 @@ class Follow(graphene.Mutation):
         user = info.context.user
         if(user.is_anonymous):
             raise Exception("Not logged in!")
+        if(user.user_type == 'Businessowner'):
+            raise Exception("Only Investors can follow business")
+     
         bussiness = Businessowner.objects.get(id = businessId)
         investor = Investor.objects.get(account_id = user.id)
 
         follower = Follower(
-            businessId = bussiness,
-            investorId = investor
+            business = bussiness,
+            investor = investor
         )
         follower.save()
 
         return Follow(
-            id = follower.id,
-            bussinessId = follower.businessId,
-            investorId = follower.investorId
+            followed = follower
         )
 
+
 class UnFollow(graphene.Mutation):
-    id = graphene.Int()
+    unfollowSuccess = graphene.Boolean()
     class Arguments:
-        id = graphene.Int(required = True)
-    def mutate(self, info, id):
+        followId = graphene.Int(required = True)
+    def mutate(self, info, **kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception("Not logged in!")
-        removedFollowRecord = Follower.objects.get(id = id).delete()
-        removedFollowRecord.save()
-        return Follow(
-            id = removedFollowRecord.id,
-            businessId = removedFollowRecord.businessId,
-            investorId = removedFollowRecord.investorId
-        )
+            raise Exception("Not Logged in!")
+        followId = kwargs['followId']
+        try:
+            Follower.objects.get(id = followId).delete()
+        except:
+            raise Exception("Can not get follow record with id: "+str(followId)+ " .")
+
+        
+
+        return {"unfollowSuccess":True}
 
 
 

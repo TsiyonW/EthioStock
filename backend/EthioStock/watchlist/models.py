@@ -1,13 +1,15 @@
 from django.db import models
+from account.models import Account
+from stock.models import Stock
 from investor.models import Investor
-from businessowner.models import Businessowner
+# Create your models here.
 
 class Watchlist(models.Model):
-    ownerId = models.ForeignKey(
-        Investor,
+    account = models.ForeignKey(
+        Account,
         on_delete = models.DO_NOTHING
     )
-    businessId = models.ForeignKey(
-        Businessowner, 
-        on_delete = models.DO_NOTHING
+    stock = models.ForeignKey(
+        Stock,
+        on_delete=models.DO_NOTHING
     )

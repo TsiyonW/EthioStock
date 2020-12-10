@@ -1,10 +1,10 @@
-import graphene
-from .models import Comment
-from post.models import Post
-from .types import CommentType
+# import graphene
+# from .models import Comment
+# from post.models import Post
+# from .types import CommentType
 
-class Query(graphene.ObjectType):
-    comments = graphene.List(CommentType)
+# class Query(graphene.ObjectType):
+#     comments = graphene.List(CommentType, postId = graphene.Int())
 
-    def resolve_comments(self, info, postId):
-        return Comment.objects.filter(post_id = postId)     
+#     def resolve_comments(self, info, postId):
+#         return Comment.objects.filter(post_id = postId)

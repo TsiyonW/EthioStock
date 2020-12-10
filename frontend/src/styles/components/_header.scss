@@ -1,0 +1,59 @@
+$secondaryBtnColor:rgb(27,205,172);//buy
+
+.sidebar-container{
+    position: absolute;
+    top:0;
+    background-color:#2eaf8f;
+    height: 200%;
+    color: white;
+    width: 26%;
+    display: none;
+    .user-profile{
+        text-align: center;
+        width: 80%;
+        margin: auto;
+        font-size: 18px;
+        border-bottom: white 1px solid;
+    }
+    .title-c{
+        position: relative;
+        font-size: 35px;
+    }
+    .title{
+        text-align: center;
+    }
+    .sidebar-menu{
+        width: 80%;
+        margin: auto;
+        
+    }
+    .sidebar-close{
+        position: absolute;
+        right:0;
+        padding: 0;
+        background: none;
+        color: white;
+    }
+    ul{
+        margin-left: 10%;
+    }
+    li{
+        list-style-type: none;
+        padding: 10% 0 2% 0 ;
+    }
+    a{
+        color: white;
+    }
+    button{
+        border-radius: 20px;
+        border: none;
+        background-color: white;
+        color: black;
+        font-weight: bolder;
+        padding: 2% 5% 2% 5%;
+        margin-left: 25%;
+    }
+    .menu-separator{
+        border-bottom: white 1px solid;
+    }
+}

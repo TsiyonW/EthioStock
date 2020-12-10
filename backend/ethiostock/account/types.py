@@ -6,3 +6,10 @@ class  AccountType(DjangoObjectType):
     class Meta:
         model =  Account
 
+class ErrorType(graphene.ObjectType):
+    success = graphene.Boolean()
+    message = graphene.String()
+
+class FetchUserType(graphene.Union):
+    class Meta:
+        types = (ErrorType , AccountType)

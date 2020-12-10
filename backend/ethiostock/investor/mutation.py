@@ -2,144 +2,190 @@ import graphene
 from account.models import Account
 from account.types import AccountType
 from investor.models import Investor
+from investor.types import InvestorType
 from graphql_jwt.shortcuts import create_refresh_token, get_token
+from graphene_file_upload.scalars import Upload
 
 
 #create investor 
 class CreateInvestorAccount(graphene.Mutation):
-    id          = graphene.Int()
-    username    = graphene.String()
-    password    = graphene.String()
-    email       = graphene.String()
-    last_name   = graphene.String()
-    first_name  = graphene.String()
-    phoneNo     = graphene.String()
-    sex         = graphene.String() 
-    subcity     = graphene.String() 
-    woreda      = graphene.Int()
-    nationality = graphene.String()
-    user_type   = graphene.String()
-    account     = graphene.Field(AccountType)
+    investor_created = graphene.Field(InvestorType)
     success = graphene.Boolean()
-    token = graphene.String()
-    refresh_token = graphene.String()
+    message = graphene.String()
 
     #supply arguments
     class Arguments:
-        username    = graphene.String(required=True)
-        password    = graphene.String(required=True)
-        email       = graphene.String(required=True)
-        last_name   = graphene.String(required=True)
-        first_name  = graphene.String(required=True)
-        phoneNo     = graphene.String(required=True)
-        sex         = graphene.String(required=True) 
-        subcity     = graphene.String(required=True) 
-        woreda      = graphene.Int(required=True)
-        nationality = graphene.String(required=True)
+        investor_kebele = graphene.String(required=True)
+        investor_occupation = graphene.String()
+        investor_house_no = graphene.String()
+        investor_resident_ID = graphene.String()
+        investor_driving_licence_ID = graphene.String()
+        investor_passport_number = graphene.String()
+        investor_nationality = graphene.String(required=True)
+        respondent_first_name  = graphene.String(required=True)
+        respondent_middle_name = graphene.String(required=True)
+        respondent_last_name  = graphene.String(required=True)
+        respondent_kebele   = graphene.String()
+        respondent_house_no  = graphene.String()
+        respondent_occupation   = graphene.String()
+        respondent_phone_no = graphene.String(required=True)
+        respondent_resident_ID = graphene.String()
+        respondent_driving_licence_ID  = graphene.String()
+        respondent_passport_number = graphene.String()
+        profile_pic = Upload()
 
     #save to database/model
-    def mutate(self, info, username, password, email, last_name, first_name,phoneNo, sex, subcity, woreda, nationality):
-        user_type = "Investor"
-        user = Account(
-            username    = username,
-            password    = password,
-            email       = email,
-            last_name   = last_name,
-            first_name  = first_name,
-            phoneNo     = phoneNo,
-            sex         = sex,
-            subcity     = subcity,
-            woreda      = woreda,
-            user_type   = user_type
-        )
-        investor = Investor(
-            nationality = nationality,
-            account     = user
-        )
-        user.set_password(password)
-        user.save()
-        
-        investor.save()
-        token = get_token(user)
-        refresh_token = create_refresh_token(user)
+    def mutate(self, info,  **kwargs):
+        user = info.context.user
+        if(user.is_anonymous):
+            return CreateInvestorAccount(
+                success=False,
+                message="Not Logged in!"
+                )
 
-        return CreateInvestorAccount(
-                id=investor.account_id,
-                username=user.username,
-                first_name=user.first_name,
-                last_name = user.last_name,
-                email = user.email,
-                phoneNo = user.phoneNo,
-                sex = user.sex,
-                subcity = user.subcity,
-                woreda = user.woreda,
-                user_type = user.user_type,
-                nationality = investor.nationality, 
-                token = token,
-                refresh_token = refresh_token,
-                success = True,
+        if(user.user_type != 'Investor'):
+            return CreateInvestorAccount(
+                success=False,
+                message="Cannot create a investor account"
+                )
+
+        userExists = Account.objects.filter(id = user.id).exists()
+        if(not userExists):
+            return CreateInvestorAccount(
+                success=False,
+                message="User doesnt exist"
+                )
+
+        user = Account.objects.get(id =  user.id)
+        investor_occupation = kwargs['investor_occupation'] if 'investor_occupation' in kwargs else ''
+        investor_house_no = kwargs['investor_house_no'] if 'investor_house_no'  in kwargs else ''
+        investor_resident_ID = kwargs['investor_resident_ID'] if 'investor_resident_ID'  in kwargs else ''
+        investor_driving_licence_ID = kwargs['investor_driving_licence_ID'] if 'investor_driving_licence_ID'  in kwargs else ''
+        investor_passport_number = kwargs['investor_passport_number'] if 'investor_passport_number'  in kwargs else ''
+        respondent_house_no  = kwargs['respondent_house_no'] if 'respondent_house_no'  in kwargs else ''
+        respondent_occupation   =  kwargs['respondent_occupation'] if 'respondent_occupation'  in kwargs else ''
+        respondent_resident_ID = kwargs['respondent_resident_ID'] if 'respondent_resident_ID'  in kwargs else ''
+        respondent_driving_licence_ID  = kwargs['respondent_driving_licence_ID'] if 'respondent_driving_licence_ID'  in kwargs else ''
+        respondent_passport_number = kwargs['respondent_passport_number'] if 'respondent_passport_number'  in kwargs else ''
+        profile_pic = kwargs['profile_pic'] if 'profile_pic'  in kwargs else ''
+        respondent_kebele = kwargs['respondent_kebele'] if 'respondent_kebele'  in kwargs else ''
+
+
+        investor = Investor(
+            account     = user,
+            investor_kebele = kwargs['investor_kebele'],
+            investor_occupation = investor_occupation,
+            investor_house_no = investor_house_no,
+            investor_resident_ID = investor_resident_ID,
+            investor_driving_licence_ID = investor_driving_licence_ID,
+            investor_passport_number = investor_passport_number,
+            investor_nationality = kwargs['investor_nationality'],
+            respondent_first_name = kwargs['respondent_first_name'],
+            respondent_middle_name = kwargs['respondent_middle_name'],
+            respondent_last_name  = kwargs['respondent_last_name'],
+            respondent_kebele  = respondent_kebele,
+            respondent_house_no = respondent_house_no,
+            respondent_occupation  = respondent_occupation,
+            respondent_phone_no = kwargs['respondent_phone_no'],
+            respondent_resident_ID = respondent_resident_ID,
+            respondent_driving_licence_ID =respondent_driving_licence_ID,
+            respondent_passport_number = respondent_passport_number,
+            profile_pic = profile_pic,
         )
+        
+        investor.save()        
+        if(investor):
+            user.account_linked = True        
+            user.save()
+
+            return CreateInvestorAccount(
+                    investor_created = investor,
+                    success = True,
+                    message ="Investor created successfully"
+            )
+        else:
+            return CreateInvestorAccount(
+                success= False, 
+                message="cannot create investor"
+            )
 
 
 #update investor account
 class UpdateInvestorAccount(graphene.Mutation):
-    #user can update the following fields
-    email       = graphene.String()
-    sex         = graphene.String() 
-    subcity     = graphene.String() 
-    woreda      = graphene.Int()    
-    nationality = graphene.String()
-    first_name  = graphene.String()
-    last_name   = graphene.String()
-    password    = graphene.String()
-
-    #let the user supply one of the following but the password is required
+    updatedInvestor = graphene.Field(InvestorType)
+    success = graphene.Boolean()
+    message = graphene.String()
+    #let the user supply the fields he/she wants to update
     class Arguments:
+        investor_kebele = graphene.String()
+        investor_occupation = graphene.String()
+        investor_house_no = graphene.String()
+        investor_resident_ID = graphene.String()
+        investor_driving_licence_ID = graphene.String()
+        investor_passport_number = graphene.String()
+        investor_nationality = graphene.String()
+        respondent_first_name  = graphene.String()
+        respondent_middle_name = graphene.String()
+        respondent_last_name  = graphene.String()
+        respondent_kebele   = graphene.String()
+        respondent_house_no  = graphene.String()
+        respondent_occupation   = graphene.String()
+        respondent_phone_no = graphene.String()
+        respondent_resident_ID = graphene.String()
+        respondent_driving_licence_ID  = graphene.String()
+        respondent_passport_number = graphene.String()
+        profilePic = Upload()
         
-        email       = graphene.String()
-        sex         = graphene.String() 
-        subcity     = graphene.String() 
-        woreda      = graphene.Int()    
-        nationality = graphene.String() 
-        first_name  = graphene.String()
-        last_name   = graphene.String()
-        password    = graphene.String(required=True)  
-
     def mutate(self,info,**kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception("Must login first")
-        elif(user.user_type == "Business Owner"):
-            raise Exception("only for Investors")
+            return UpdateInvestorAccount(
+                success = False,
+                message = "Must Login First"
+            )
+        elif(user.user_type != "Business Owner"):
+            return UpdateInvestorAccount(
+                success = False,
+                message = "User must be an investor"
+            )
+
+        investorAccountExists = Investor.objects.filter(account_id = user.id).exists()
+        if(investorAccountExists):
+            invAcc = Investor.objects.filter(account_id = user.id).exists()
         
+            invAcc.investor_kebele = kwargs['investor_kebele'] if 'investor_kebele' in kwargs else invAcc.investor_kebele
+            invAcc.investor_occupation   = kwargs['investor_occupation'] if 'investor_occupation' in kwargs else invAcc.investor_occupation
+            invAcc.investor_house_no   = kwargs['investor_house_no'] if 'investor_house_no'  in kwargs else invAcc.investor_house_no
+            invAcc.investor_resident_ID    = kwargs['investor_resident_ID'] if 'investor_resident_ID'  in kwargs else invAcc.investor_resident_ID
+            invAcc.investor_driving_licence_ID    = kwargs['investor_driving_licence_ID'] if 'investor_driving_licence_ID'  in kwargs else invAcc.investor_driving_licence_ID
+            invAcc.investor_passport_number    = kwargs['investor_passport_number'] if 'investor_passport_number'  in kwargs else invAcc.investor_passport_number
+            invAcc.investor_nationality   = kwargs['investor_nationality'] if 'investor_nationality'  in kwargs else invAcc.investor_nationality
+            invAcc.respondent_first_name    = kwargs['respondent_first_name'] if 'respondent_first_name'  in kwargs else invAcc.respondent_first_name
+            invAcc.respondent_middle_name    = kwargs['respondent_middle_name'] if 'respondent_middle_name'  in kwargs else invAcc.respondent_middle_name
+            invAcc.respondent_last_name    = kwargs['respondent_last_name'] if 'respondent_last_name'  in kwargs else invAcc.respondent_last_name
+            invAcc.respondent_kebele    = kwargs['respondent_kebele'] if 'respondent_kebele'  in kwargs else invAcc.respondent_kebele
+            invAcc.respondent_house_no   = kwargs['respondent_house_no'] if 'respondent_house_no'  in kwargs else invAcc.respondent_house_no
+            invAcc.respondent_occupation    = kwargs['respondent_occupation'] if 'respondent_occupation'  in kwargs else invAcc.respondent_occupation
+            invAcc.respondent_phone_no    = kwargs['respondent_phone_no'] if 'respondent_phone_no'  in kwargs else invAcc.respondent_phone_no
+            invAcc.respondent_resident_ID   = kwargs['respondent_resident_ID'] if 'respondent_resident_ID'  in kwargs else invAcc.respondent_resident_ID
+            invAcc.respondent_driving_licence_ID    = kwargs['respondent_driving_licence_ID'] if 'respondent_driving_licence_ID'  in kwargs else invAcc.respondent_driving_licence_ID
+            invAcc.respondent_passport_number    = kwargs['respondent_passport_number'] if 'respondent_passport_number'  in kwargs else invAcc.respondent_passport_number
+            invAcc.profile_pic    = kwargs['profile_pic'] if 'profile_pic'  in kwargs else invAcc.profile_pic
+            
+            invAcc.save()
 
-        account = Account.objects.get(id = user.id)
-        investorAccount = Investor.objects.get(account_id = user.id)
 
-        password = kwargs['password']
-        account.email       = kwargs['email'] if "email" in kwargs else user.email
-        account.sex         = kwargs['sex'] if 'sex' in kwargs else user.sex
-        account.subcity     = kwargs['subcity'] if 'subcity' in kwargs else user.subcity
-        account.woreda      = kwargs['woreda'] if 'woreda' in kwargs else user.woreda
-        account.first_name  = kwargs['first_name'] if 'first_name' in kwargs else user.first_name
-        account.last_name   = kwargs['last_name'] if 'last_name' in kwargs else user.last_name
-        investorAccount.nationality    = kwargs['nationality'] if 'nationality'  in kwargs else investorAccount.nationality
-        
-        account.set_password(password)
-        account.save()
-        investorAccount.save()
+            return UpdateInvestorAccount(
+                updatedInvestor = invAcc,
+                success = True,
+                message = "Investor account updated successfully"
 
-
-        return UpdateInvestorAccount(
-            email       = account.email,
-            first_name  = account.first_name,
-            last_name   = account.last_name,
-            nationality = investorAccount.nationality,
-            sex         = account.sex,
-            subcity     = account.subcity,
-            woreda      = account.woreda
-
-        )
+            )
+        else:
+            return UpdateInvestorAccount(
+                success = False,
+                message = "Investor account doesnt exist"
+            )
 
 
 #no account is deleted just be inactive
@@ -161,8 +207,7 @@ class DeleteInvestorAccount(graphene.Mutation):
         account = Account.objects.get(pk = user_id)
         account.is_active = False
         account.save()
-        # or we could just delete the account using account.delete()
-
+        
         return DeleteInvestorAccount(
             id = account.id,
             is_active = account.is_active

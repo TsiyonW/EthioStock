@@ -1,5 +1,8 @@
 from django.db import models
-from investor.models import Investor
+
+# Create your models here.
+from django.db import models
+from account.models import Account
 from post.models import Post
 
 class Reaction(models.Model):
@@ -8,9 +11,10 @@ class Reaction(models.Model):
         on_delete=models.DO_NOTHING
 
     )
-    investor = models.ForeignKey(
-        Investor,
+    reactedby = models.ForeignKey(
+        Account,
         on_delete = models.DO_NOTHING
     )
-    isLike = models.BooleanField()
-    reactionTime = models.DateTimeField()
+    isLike = models.BooleanField(default = False)
+    isDislike = models.BooleanField(default = False)
+    reactionTime = models.DateTimeField(auto_now_add=True)

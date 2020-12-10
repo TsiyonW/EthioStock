@@ -1,0 +1,58 @@
+.homepage-header{
+    position: relative;
+    width: auto;
+    
+}
+.posts-container{
+    position:absolute;
+    top:18%;
+    margin-left:10%;
+    width: 60%;
+    border-color: red;
+    border-width: 30px;
+    overflow: auto;
+    background-color: white;
+}
+.post-title{
+    font-weight: bolder;
+    padding:2%;
+
+}
+.post-title-container{
+    padding:2%;
+}
+.post-description, .post-likes, .post-comments {
+    width:80%;
+    margin:auto;
+}
+.post-description{
+    clear:left;
+    font-size: 15px;
+    color:black;
+}
+.like-icon{
+    font-size: 200%;
+    margin:1% 1% 0 0;
+}
+.delete-icon, .edit-icon{
+    margin-right:1%;
+}
+.single-post-container{
+    border: 1px solid lightgray;
+    margin-bottom: 2%;
+}
+
+.post-header-title{
+    float: left;
+    width: 70%;
+}
+
+.post-header-commands li{
+    display: inline;
+    padding:0% 3%;
+    
+}
+.post-header-commands ul{  
+    margin-top:2%;
+    padding:2.5%;
+}

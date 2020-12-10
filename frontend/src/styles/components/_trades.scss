@@ -1,0 +1,79 @@
+// .recenttrades-single-head li{
+  
+// }
+.recenttrades-container{
+    position: absolute;
+    right:1%;
+    top:8%;
+    width:25%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white;
+    
+}
+.left-head{
+    float: left;
+}
+.right-head{
+    float: right;
+}
+.recenttrade-indicators{
+  clear:both;
+}
+.sell-indicator{
+    padding:2% 3.5%;
+    background-color:#9fdfae;
+    margin:3% ;
+    font-weight: bold;
+    font-size: 17px;
+    // margin-top:5%;
+}
+.recenttrade-indicators{
+    margin-top:3%;
+}
+.sell-figure, .buy-figure{
+font-size: 18px;
+}
+.trade-company-name{
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 5px;
+
+}
+.buy-indicator{
+    padding:2% 3.5%;
+    background-color:#0fd4aa;
+    margin:3%;
+    font-weight: bold;
+    font-size: 17px;
+}
+.recenttrades-header{
+    text-align: center;
+}
+.recenttrades-contents ul li{
+    list-style-type:none;
+    margin:2%;
+}
+
+.recenttrades-single-head{
+    border-bottom: 1px solid lightgray;
+}
+
+.clearfix{
+    clear:both;
+}
+
+.filedone-icon{
+    font-size:20px;
+    // padding:5px;
+}
+.recenttrades-user-icon{
+    color:gray;
+    font-size:25px;
+    // padding:5px;
+    border:1px solid gray;
+    border-radius:50%;
+}
+.bold-icon{
+    font-weight: bold;
+    font-size:18px;
+}

@@ -8,6 +8,8 @@ from post.types import PostType
 #creating post
 class CreatePost(graphene.Mutation):
     post = graphene.Field(PostType)
+    success = graphene.Boolean()
+    message = graphene.String()
     #while creating post should supply description, title, and image arguments(image is optional)
     class Arguments:
         description = graphene.String(required = True)
@@ -18,7 +20,15 @@ class CreatePost(graphene.Mutation):
     def mutate(self, info, **kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception('Not Logged in!')
+            return CreatePost(
+                success = False, 
+                message = "Not Logged in !"
+            )
+        if(user.user_type == 'Investor'):
+            return CreatePost(
+                success = False, 
+                message = "Only business owners can post !"
+            )
         owner = Businessowner.objects.get(account_id = user.id)
         
         description = kwargs['description']
@@ -37,12 +47,16 @@ class CreatePost(graphene.Mutation):
 
         # return the post created
         return CreatePost(
-            post  = post
+            post  = post, 
+            success = True, 
+            message = "Post Created Successfully"
         )
 
 #update post
 class UpdatePost(graphene.Mutation):
     post = graphene.Field(PostType)
+    success = graphene.Boolean()
+    message = graphene.String()
     class Arguments:
         postId= graphene.Int(required = True)
         image = Upload()
@@ -52,40 +66,65 @@ class UpdatePost(graphene.Mutation):
     def mutate(self, info, **kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception("Not Logged in!")
+            return UpdatePost(
+                success = False, 
+                message = "Not Logged in !"
+            )
+        if(user.user_type != 'Business'):
+            return CreatePost(
+                success = False, 
+                message = "Only business owners can post !"
+            )
         owner = Businessowner.objects.get(account_id = user.id)
         postId = kwargs['postId']
         post = Post.objects.get(id = postId)
         if(owner != post.owner):
-            raise Exception("Only owners can edit their post")
+            return CreatePost(
+                success = False, 
+                message = "Only owners can edit their post!"
+            )
         post.description = kwargs['description'] if "description" in kwargs else post.description
         post.image = kwargs['image'] if "image" in kwargs else post.image
         post.title = kwargs['title'] if "title" in kwargs else post.title
         post.save()
 
         return UpdatePost(
-            post = post
+            post = post,
+            success = True,
+            message = "Post Updated Successfully"
         )
 
 
 
 #delete post
 class DeletePost(graphene.Mutation):
-    successMessage = graphene.String()
+    removeSuccess = graphene.Boolean()
+    success = graphene.Boolean()
+    message = graphene.String()
+
     class Arguments:
         postId = graphene.Int(required = True)
     def mutate(self, info, **kwargs):
         user = info.context.user
         if(user.is_anonymous):
-            raise Exception("Not Logged in!")
+            return UpdatePost(
+                success = False, 
+                message = "Not Logged in !"
+            )
         postId = kwargs['postId']
-        post = Post.objects.get(id = postId).delete()
-
-        
-
+        try:
+            Post.objects.get(id = postId).delete()
+        except:
+            return DeletePost(
+                success = False, 
+                message = "Can not get post with id: "+str(postId)+ " ."
+            )
+ 
         return DeletePost(
-            successMessage = "Successfully deleted post"
-        )
+            success = True, 
+            message = "Post removed successfully"
+            )
+        
 
 #register mutations 
 class Mutation(graphene.ObjectType):

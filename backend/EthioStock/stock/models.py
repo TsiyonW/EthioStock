@@ -1,5 +1,5 @@
 from django.db import models
-from businessowner.models import Businessowner
+from account.models import Account
 
 class Stock(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=10)
@@ -7,12 +7,13 @@ class Stock(models.Model):
     openingDate = models.DateField()
     description = models.TextField()
     noOfStock = models.IntegerField()
+    serviceChargePercentage = models.IntegerField()
     approved = models.BooleanField(default=False)
     closed = models.BooleanField(default=False)
-    sells = models.DecimalField(decimal_places=2, max_digits=10)
-    buys = models.DecimalField(decimal_places=2, max_digits=10)
+    sells = models.DecimalField(decimal_places=2, max_digits=10, default=0)
+    buys = models.DecimalField(decimal_places=2, max_digits=10, default=0)
     owner = models.ForeignKey(
-        Businessowner,
+        Account,
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
