@@ -1,14 +1,14 @@
 import {gql} from '@apollo/client'
  
 export const INVESTOR_CREATED_SUBSCRIPTION = gql`
-subscription OnInvestorCreated{
-    investorCreated{
+subscription investorCreated{
+  
       id
       account{
           id
           username
       }
-    }
+    
   }
 `;
 

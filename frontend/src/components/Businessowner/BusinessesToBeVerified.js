@@ -25,6 +25,7 @@ function BusinessesToBeVerified(props){
         return(
             <div>
                 
+                <h1>Businesses to be verified</h1>
                 {data_businessaccounts.businessToBeVerified.length>0? 
                 data_businessaccounts.businessToBeVerified.map((businessaccount)=>{
                     return(<BusinessToBeVerified  key={businessaccount.id} businessAccount = {businessaccount}/>)

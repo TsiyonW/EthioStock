@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import {CREATE_POST_MUTATION} from '../../gql/mutation/post'
 
 import { Mutation } from "@apollo/client/react/components";
-import { Form,Input, Modal, Alert,Button} from 'antd'
-import Header from '../Businessowner/Header'
 import auth from '../../Auth';
+import {  Form,Input, Modal, Alert,Modal, Button,Card,Affix,Form,Layout} from 'antd'
+import Header3 from './Header3'
+import bg from '../../img/bg.jpg';
+const {  Footer } = Layout;
 
+
+import {  Modal, Button,Card,Affix,Form,Layout} from 'antd'
 
 class CreatePost extends Component{
     formRef = React.createRef();
@@ -73,8 +77,17 @@ class CreatePost extends Component{
 
     return(
             <div>
-                <div>
 
+                <div>
+<Affix>
+                  <Header3 handleLogout = {this.logout} />
+                </Affix>
+                 <Card bordered={false} cover={<img alt="example" src={bg}  style={{   transparent :1 , marginTop:-10 ,opacity: 0.3 , height:200 , display:"block" ,} }/> }>
+             <Card style={{width:750 ,height:325 , opacity: 0.7,marginTop:-80, marginLeft:400 ,background:"whitesmoke"}}>
+                <div>
+                 <h3>Create Post</h3> <br/>
+                <Card style={{width:750 ,height:270 , marginTop:-25, marginLeft:-25 ,background:"white"}}> 
+                  
                     <Header handleLogout = {this.logout}/>
                     <Form ref={this.formRef} onFinish={this.onFinish}>
                     {createFail?<Alert
@@ -145,7 +158,13 @@ class CreatePost extends Component{
                     </Modal>
                         
 
+                                        
+</Card>
                  </div>
+                 </Card>
+                 </Card>
+                 <br/><br/><br/><br/><br/>
+                 <Footer style={{ textAlign: 'center'  , marginTop:'auto' ,background:'#CEECE8'}}>Ethiostock ©2020 </Footer>
             </div>
         )
     }

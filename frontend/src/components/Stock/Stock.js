@@ -2,9 +2,11 @@ import React , {useState}from "react";
 import {ADD_TO_WATCHLIST} from  '../../gql/mutation/watchlist'
 import { useMutation, } from '@apollo/client'
 
-import {Form, Button } from 'antd'
+import {Form, Button, Alert } from 'antd'
 const Stock =(props)=> {
     let [errMessage, setErrorMessage] = useState('');
+    let [errExists, setErrExists] = useState(false)
+    let [successMessage, setSuccessMessage] = useState(false)
     // let [stocks, setStock] = useQuery()
     const [addToWatchlist] = useMutation(ADD_TO_WATCHLIST,
         {
@@ -13,13 +15,23 @@ const Stock =(props)=> {
                 const {  watchlistAdded, success, message } = addWatchlist.addWatchlist;
                 if(!success){
                     setErrorMessage(errMessage=message)
+                    setErrExists(errExists = true)
                 }
                 if(success){
+                    setSuccessMessage(successMessage = true)
+                    setErrorMessage(errMessage = message)
                     console.log(watchlistAdded)
                 }
             }
         }
         )
+
+        const onCloseError=()=>{
+            setErrExists(errExists=false)
+        }
+        const onCloseSuccess=()=>{
+            setSuccessMessage(successMessage=false)
+        }
 
         const stock = props.stockDetail;
         // const addToWatchlist = this.props.addToWatchlist
@@ -28,8 +40,10 @@ const Stock =(props)=> {
         };
         return(
             <div>
+                {errExists?<Alert message={errMessage} type="error" closable onClose={onCloseError}/>:<p></p>}
+                {successMessage?<Alert message={errMessage} type="success" closable onClose={onCloseSuccess}/>:<p></p>}
+                
                 <Form name="stock_form_w" onFinish={onFinish}>
-                    <p  className="authentication-error">{errMessage}</p>
                     <p>StockDescription: {stock.description}</p>
                     <p>No of stocks: {stock.noOfStock}</p>
                     <p>closingDate: {stock.closingDate}</p>

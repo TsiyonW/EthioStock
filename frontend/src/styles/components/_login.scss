@@ -6,23 +6,33 @@ $linksColor:rgb(24,144,255);
 
 //LoginSignupHeader
 .login-container{
-  margin-top: 10%;  
-  
+  margin-top: 10%; 
+  //position: relative;
+  width:100%;
+  display: inline-block
      
  }
 
 .login-signup-head{
   text-align: center;
+
+  
+  
   .main-header{
-    font-weight: bolder;
-    font-size: 50px;
-    color:rgb(46,175,143) ;
+     font-weight: bolder;
+      font-size: 40px;
+      color:rgb(46,175,143) ;
+      margin-top: -200px;
+      //width: 50%;
+      
+   
   }
   .sub-header{
     color: gray;
     font-style: italic;
   }
 }
+
 // Flex box container
 .login-flex-container {
   display: flex;
@@ -34,7 +44,7 @@ $linksColor:rgb(24,144,255);
 .login-signup-left-side{
   margin: 5% 0 0 15%;
   width: 35%;
-  border-right: solid 3px gray;
+  border-right: solid 1px gray;
   p{
     padding:1%;
     font-size: 20px;
@@ -47,12 +57,33 @@ $linksColor:rgb(24,144,255);
 
 //Login Form(the right flexbox)
 .login-signup-right-side{
-  margin-top: 5%;
-  width: 35%;
-  margin-left: 5%;
+  margin-top: 3%;
+  width: 45%;
+  margin-left: 3%;
 }
 h1{
   margin-left: 25%;;
+}
+
+
+.forgetPass_btn{
+ 
+  font-size: 20px;
+  font-weight: 600;
+  
+  //padding-bottom: 10px;
+  margin: 20px 0px 0px 0px;
+  width: 90%;
+  margin-left: 5%;
+
+}
+.signup-button{
+  
+  //padding-bottom: 10px;
+  margin: 20px 0px 0px 0px;
+  width: 30%;
+  margin-left: 65%;
+  margin-top: -35%;
 }
 
 @mixin login-signup-input-forms {

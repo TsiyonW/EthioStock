@@ -63,7 +63,7 @@ class Query(graphene.ObjectType):
                 )
             else:
                 filter = (
-                    Q(business__icontains=search) | 
+                    Q(business_name__icontains=search) | 
                     Q(category__icontains=search) |
                     Q(account__username = search) |
                     Q(account__email__icontains = search) 

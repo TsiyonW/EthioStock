@@ -11,6 +11,7 @@ import PublicHomepage from '../components/Account/PublicHomepage'
 import RegisterUser from '../components/Account/RegisterUser'
 import Profile from '../components/Account/Profile'
 import CreatePost from '../components/Post/CreatePost'
+import UpdateInvestor from '../components/Investor/UpdateInvestor'
 // import InitiatedStock from '../components/InitiatedStock';
 // import ForgetPassword from '../components/ForgetPassword';
 // // import { AUTH_TOKEN } from "../constants";
@@ -33,7 +34,8 @@ import InvestorHomepage from '../components/Investor/InvestorHomepage'
 import VerifyAdmin from '../components/Admin/VerifyAdmin'
 import VerifyMyAdminAccount from '../components/Admin/VerifyMyAdminAccount'
 import ReportsToBeResolved from '../components/Report/ReportsToBeResolved'
-
+import SearchResults from '../components/Account/SearchResults'
+import UpdateProfile from '../components/Account/UpdateProfile'
 const NotFoundPage = () => (
   <div>
     <div>404! PAGE NOT FOUND</div>
@@ -70,6 +72,10 @@ const AppRouter = () => (
           <Route path="/viewBusiness/:id" component={ViewBusiness}/>
           <Route path="/viewInvestor/:id" component={ViewInvestor}/>
           <Route path="/viewAdmin/:id" component={ViewAdmin}/>
+          <Route path="/searchresults" component={SearchResults}/>
+          <Route path="/updateinvestor" component={UpdateInvestor}/>
+          <Route path="/updateprofile" component={UpdateProfile}/>
+          
        {/*  
         <Route path="/newsfeed" component={NewsFeed} />
         <Route path="/mystock" component={MyStockPage} />

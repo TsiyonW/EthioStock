@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import { Form, Input,Modal, Button,} from 'antd';
 import { Redirect } from "react-router-dom";
 import { Mutation } from "@apollo/client/react/components";
-import { ADD_INVESTOR_INFO } from '../../gql/mutation/account'
+import { ADD_INVESTOR_INFO } from '../../gql/mutation/investor'
 import 'antd/dist/antd.css';
 import '../../styles/styles.scss';
 import Header from './Header'

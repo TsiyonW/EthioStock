@@ -6,6 +6,7 @@ import MyStockList from "../Stock/MyStockList";
 import SideBar from '../Account/Sidebar';
 import userIcon from '../../img/usericon.png';
 import con from '../../img/i1.jpeg';
+import {Link} from 'react-router-dom'
 import { Divider, Layout,Statistic } from 'antd';
 import { Skeleton, Switch, Icon, Avatar,Card, Col, Row,Button,Carousel } from 'antd';
 
@@ -47,15 +48,15 @@ class MarketLatest extends Component{
 
 
 
-            <div class="container">
+            <div className="container">
             <img src={con} alt={"Nature"} style={{width:"100%"}}/>
-                    <div class="text-block">
+                    <div className="text-block">
                         <Divider style={{ backgroundColor: 'white' , height: 3}}/>
-                        <h style={{fontSize:35 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700}}>ETHIOSTOCK</h><br/>
-                        <h style={{fontSize:20 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700}}>STOCK EXCHANGE ANALYSIS AND PREDICTION</h><br/>
-                        <h style={{fontSize:25}}>In 2020 Ethiopia is planning to set up a stock market.</h><br/>
-                        <h style={{fontSize:20}}>The stock market is a way for companies to get money by selling parts of their company</h><br/><br/>
-                        <button Link to ='/login' style={{color: 'white', backgroundColor: 'transparent' ,borderColor: 'white', fontWeight: 700}} > LOGIN</button>
+                        <p style={{fontSize:35 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700}}>ETHIOSTOCK</p><br/>
+                        <p style={{fontSize:20 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700}}>STOCK EXCHANGE ANALYSIS AND PREDICTION</p><br/>
+                        <p style={{fontSize:25}}>In 2020 Ethiopia is planning to set up a stock market.</p><br/>
+                        <p style={{fontSize:20}}>The stock market is a way for companies to get money by selling parts of their company</p><br/><br/>
+                        <Link to ='/login' style={{color: 'white', backgroundColor: 'transparent' ,borderColor: 'white', fontWeight: 700}} > LOGIN</Link>
                         
                     </div>
 

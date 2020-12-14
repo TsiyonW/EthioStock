@@ -4,13 +4,15 @@ from businessowner.models import  Businessowner
 from django.db.models import Q
 from admina.models import Admina
 from admina.types import AdminType
-
+from account.types import AccountType
+from account.models import Account
 class Query(graphene.ObjectType):
     
     allAdmins = graphene.List( AdminType, first=graphene.Int(), skip = graphene.Int() )
     myAdminAccount = graphene.Field(AdminType)
     getAdminById = graphene.Field(AdminType, admin_id = graphene.Int())
     searchAdmin = graphene.List(AdminType, search = graphene.String(), first=graphene.Int(), skip = graphene.Int())
+    getAdminsNotVerified = graphene.List(AccountType)
     isAdminFirst  = graphene.Boolean()
     #create a resolver to return all the records
     def resolve_isAdminFirst(self,info,**kwargs):
@@ -93,4 +95,12 @@ class Query(graphene.ObjectType):
         if first:
             admin = admin[:first]
         return admin
+    def resolve_getAdminsNotVerified(self, info, **kwargs):
+        # user = info.context.user
+        # if(user.is_anonymous):
+        #     return None
+        # if(user.user_type != 'Admin'):
+        #     return None
+        # else:
+            return Account.objects.filter(user_type="Admin", account_linked=False)
     

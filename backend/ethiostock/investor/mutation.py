@@ -55,6 +55,12 @@ class CreateInvestorAccount(graphene.Mutation):
                 success=False,
                 message="User doesnt exist"
                 )
+        investorExists = Investor.objects.filter(account_id = user.id).exists()
+        if(investorExists):
+            return CreateInvestorAccount(
+                success=False,
+                message= "Investor account exists"
+            )
 
         user = Account.objects.get(id =  user.id)
         investor_occupation = kwargs['investor_occupation'] if 'investor_occupation' in kwargs else ''
@@ -143,7 +149,7 @@ class UpdateInvestorAccount(graphene.Mutation):
                 success = False,
                 message = "Must Login First"
             )
-        elif(user.user_type != "Business Owner"):
+        elif(user.user_type != "Investor"):
             return UpdateInvestorAccount(
                 success = False,
                 message = "User must be an investor"
@@ -151,7 +157,7 @@ class UpdateInvestorAccount(graphene.Mutation):
 
         investorAccountExists = Investor.objects.filter(account_id = user.id).exists()
         if(investorAccountExists):
-            invAcc = Investor.objects.filter(account_id = user.id).exists()
+            invAcc = Investor.objects.get(account_id = user.id)
         
             invAcc.investor_kebele = kwargs['investor_kebele'] if 'investor_kebele' in kwargs else invAcc.investor_kebele
             invAcc.investor_occupation   = kwargs['investor_occupation'] if 'investor_occupation' in kwargs else invAcc.investor_occupation

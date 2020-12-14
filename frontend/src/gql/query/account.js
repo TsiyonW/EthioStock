@@ -3,40 +3,27 @@ import {gql} from '@apollo/client'
 export const GET_USER_PROFILE = gql`
     {
         getUserProfile{
-           firstName
-           lastName
-           phoneNo
-           userType
-           sex
-           email
-           subcity
-           woreda
-           dateJoined
+          id
+          email
+          username
+          firstName
+          middleName
+          lastName
+          userType
+          phoneNo
+          subcity 
+          woreda
+          address
+          sex 
+          accountLinked
+          dateJoined 
 
            
             
         }
     }
 `
-export const GET_INVESTOR_ACCOUNT = gql`
-{
-    myInvestorAccount{
-        nationality
-        account{
-            firstName
-            lastName
-            phoneNo
-            userType
-            sex
-            email
-            subcity
-            woreda
 
-        }
-        
-   }
-}
-`
 export const GET_BUSINESS_ACCOUNT = gql`
 {
     myBusinessAccount{
@@ -156,46 +143,26 @@ query getBusinessById($businessId:Int!){
 }
 
 `
-export const GET_INVESTOR_BY_ID =   gql`
-
-  query getInvestorById($investorId:Int!){
-    getInvestorById(investorId:$investorId){
-        id
-        username
-        email
-        firstName
-        lastName
-        middleName
-        userType
-        woreda
-        sex
-        subcity
-        phoneNo
-        investor{
-            id
-            investorKebele
-            investorHouseNo
-            investorOccupation 
-            investorResidentId 
-            investorDrivingLicenceId
-            investorPassportNumber 
-            investorNationality
-            respondentFirstName
-            respondentMiddleName 
-            respondentLastName 
-            respondentKebele
-            respondentHouseNo 
-            respondentOccupation 
-            respondentPhoneNo
-            respondentResidentId 
-            respondentDrivingLicenceId 
-            respondentPassportNumber 
-            profilePic
-        }
-
-      
-    }
-}
-
+export const GET_ADMIN_NOT_VERIFIED = gql`
+ query{
+   getAdminsNotVerified{
+     id
+     username
+     firstName
+     lastName
+     middleName
+     isAdmin
+     address
+     email
+     dateJoined
+     userType
+   }
+ }
+  
 
 `
+
+
+
+
+

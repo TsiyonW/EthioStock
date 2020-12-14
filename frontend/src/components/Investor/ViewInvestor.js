@@ -1,5 +1,5 @@
 import React from 'react'
-import {GET_INVESTOR_BY_ID} from '../../gql/query/account'
+import {GET_INVESTOR_BY_ID} from '../../gql/query/investor'
 import { useParams } from 'react-router-dom'
 // import { useQuery } from '@apollo/client'
 import { Query } from '@apollo/client/react/components'

@@ -1,344 +1,60 @@
-$headerBackgroundColor:rgb(210,235,231);
-$navBarBackgroundColor:rgb(46,175,143);
-$placeholderTextColor: rgba(160, 160, 160, 0.103);
+$secondaryBtnColor:rgb(27,205,172);//buy
 
-@mixin common-btn {
-    border: none;
-    border-radius: 25px;
-    padding:2% 0 4.5%  0;
-    font-size: 15px;
-    margin:1%;
-  }
-
-.header-flex-box {
-    display: flex;
-    
-   
-
-  }
-
-
-
-
-
-
-.header-flex-box-search{
-    margin-left: 100px;
-    width: 500px;
-    border-radius: 1;
-    
-   
-    input[type = text]::placeholder{
-        color: $placeholderTextColor;
-        font-style: italic;
-        
-    }
-}
-.header-flex-box-menu{
-    width: 40%;
-    margin-top: 20px;
-}
-.publichomepage-container{
-
-    background-color: transparentize($color: rgb(46,175,143), $amount: 1%);
-    height: 100px;
-   
-   
-  
-    ul{
-        list-style-type: none;
-        background-color: transparentize($color: (#CEECE8), $amount: 0.2%); 
-        margin-top:0px ;
-        height: 90px;
-        font-weight: bold;
-        font-size: 15px; 
-        font-family:'BlinkMacSystemFont';
-      
-        .header-title{
-          font-weight: bold;
-          font-size: 22px; 
-          font-family:'Time Roman'; 
-          margin-left :10px; 
-      }  
-      .menu-unfold-btn{
-          margin-left: 10px;
-          border: none;
-          background: none;
-          cursor: pointer;
-          padding: 0px;
-       
-      }
-
-      
-
-        li{
-            display: inline-block;
-            margin: 0%;
-            padding: 20 1% 0.2% 0.5%;
-            margin-top:25px ;
-            //border-bottom:1px solid white;
-            font-size: 23;
-            
-
-        }
-        
-    }
-
-      
-   .ul-side{
-      margin-left: 160px;
-      background-color: transparentize($color: rgb(46,175,143), $amount: 1%); 
-      
-      li{
-          display: inline-block;
-          margin: 0%;
-          margin-right:25px ;
-          padding: 20 10 2% 5%;
-          border: solid transparentize($color: white, $amount: 0.7%) ; 
-          border-width: 0px 0px 0px 1px;
-          //text-align: center;
-          
-         
-         
-          
-
-      }
-      
-
-     
-  
-  
-      
-  }
-
-    a{
-        text-decoration: underline rgb(250,250,250);
-        color:black;
-    }
-}
-
-  .header-container {
-
-      background-color: $headerBackgroundColor ;
-     
-     
-    
-       
-      ul{
-          list-style-type: none;
-          background-color: transparentize($color: (#CEECE8), $amount: 0.2%); 
-          margin-top:0px ;
-          height: 90px;
-          font-weight: bold;
-          font-size: 15px; 
-          font-family:'BlinkMacSystemFont';
-        
-          .header-title{
-            font-weight: bold;
-            font-size: 22px; 
-            font-family:'Time Roman'; 
-            margin-left :10px; 
-        }  
-        .menu-unfold-btn{
-            margin-left: 10px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            padding: 0px;
-         
-        }
-
-        
-
-          li{
-              display: inline-block;
-              margin: 0%;
-              padding: 20 1% 0.2% 0.5%;
-              margin-top:25px ;
-              //border-bottom:1px solid white;
-              font-size: 23;
-              
-
-          }
-          
-      }
-
-        
-     .ul-side{
-        margin-left: 160px;
-        background-color: transparentize($color: rgb(46,175,143), $amount: 1%); 
-        
-        li{
-            display: inline-block;
-            margin: 0%;
-            margin-right:5px ;
-            padding: 20 10 2% 5%;
-            border: solid transparentize($color: white, $amount: 0.8%) ; 
-            border-width: 0px 0px 0px 1px;
-            //text-align: center;
-            
-           
-           
-            
-
-        }
-        
-
-       
-    
-    
-        
-    }
-
-      a{
-          text-decoration: underline rgb(250,250,250);
-          color:black;
-      }
-
-      .header-icon{
-          margin: 300;
-          padding: 15px;
-      }
-  }
-  .header-icon-btn{
-    margin: 4%;
-
-}
-.header-btns{
-    width: 50%;
-    height: 70px;
-
-
-  .create-btn-green{
-    @include common-btn();
-    background-color: $navBarBackgroundColor;
-    color: white;
-    width: 40%;
- 
-  }
-  .create-btn-white{
-    @include common-btn();
-    background-color: white;
-    width: 40%;
-  }
-  .active-link{
-      button{
-
-        font-weight: bold;
-      }
-}
-}
-  .create-stock-content{
-    width: 100%;
-    background-color: red;
-  }
-.active-link{
-    font-weight: bold;
-
-}
-
-
-//for mobile device
-@media only screen and (max-width: 600px) {
-    .header-flex-box{
-        display: block;
-    }
-    .header-flex-box-title{
-        .header-title{
-            align-items:center;
-        }
-    }
-    .header-flex-box-search{
-        width: 100%;
-    }
-    .header-flex-box-menu{
-width: 100%;
-    }
-    .header-container{
-        ul{
-            list-style-type: none;
-  
-            li{
-                display: inline;
-                margin: 1%;
-                padding: 0 1% 0.2% 0.5%;
-                //border-right:0px solid white;
-  
-             
-        }
-
-            }
-    }
-    .create-btn-green{
-        @include common-btn();
-        background-color: $navBarBackgroundColor;
-        color: white;
-        width: 30%;
-      }
-      .create-btn-white{
-        @include common-btn();
-        background-color: white;
-        width: 30%;
-      }
-}
-//for tablet
-@media only screen and (max-width: 760px) {
-    .header-flex-box-search{
-        width: 100%;
-        
-    }
-}
-
-.initiatedstock-container{
+.sidebar-container{
     position: absolute;
-    background:white;
-    top: 8%; 
-    left:8%;
-    width: 62%;
-    padding: 2%;
-    margin: 1%;
-    .initiated-title{
-        border-bottom: lightgray 1.2px solid;
+    top:0;
+    background-color:#209174;
+    height:300%;
+    color: white;
+    width: 26%;
+    display: none;
+    .user-profile{
+        text-align: center;
         width: 80%;
-        font-size: 25px;
+        margin: auto;
+        font-size: 18px;
+        border-bottom: white 1px solid;
     }
-    .initiated-header{
-        list-style-type: none;
+    .title-c{
+        position: relative;
+        font-size: 35px;
     }
-    .initiatedstock-content{
-        margin-left: 8%;
-        p{
-            text-align: justify;
-            color: black;
-        }
-        .initiated-gray-text{
-            color: gray;
-        }
+    .title{
+        text-align: center;
+    }
+    .sidebar-menu{
+        width: 100%;
+        margin: auto;
+        
+    }
+    .sidebar-close{
+        position: absolute;
+        right:0;
+        padding: 0;
+        background: none;
+        color: white;
+    }
+    ul{
+        margin-left: 10%;
     }
     li{
         list-style-type: none;
+        padding: 10% 0 2% 0 ;
     }
-    .initiatedstock-flex{
-        display: flex;
-        margin-left: 8%;
-        
-        .col-sell{
-            border-left: 10px solid #9fdfae;
-            
-        }
-        .col-buy{
-            border-left: 10px solid #0fd4aa;
-        }
-        .initiated-col1, .initiated-col2, .initiated-col3{
-            padding: 3%;
-        }
-        .apply-btn{
-            background-color:#0fd4aa;
-            border: none;
-            border-radius: 120px;
-            font-weight: bolder;
-            padding: 10px 20px 10px 20px;
-        }
-        
+    a{
+        color: white;
+    }
+    button{
+        border-radius: 20px;
+        border: none;
+        background-color: white;
+        color: black;
+        font-weight: bolder;
+        padding: 2% 5% 2% 5%;
+        margin-left: 25%;
+    }
+    .menu-separator{
+        border-bottom: white 1px solid;
     }
 }
+

@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import withAuth from '../../routers/withAuth'
 import Header from './Header'
 import BusinessesToBeVerified from '../Businessowner/BusinessesToBeVerified.js'
+import AdminsToBeVerified from './AdminsToBeVerified'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
 import SideBar from "./SidebarAdmin";
-// import BusinessUpdate from './SubscribeCreate'
+import BusinessUpdate from '../Subscriptions/SubscribeCreate'
+import AdminToBeVerified from './AdminToBeVerified'
 class AdminHomepage extends Component{
     handleLogout=(e)=>{
         auth.logOut()
@@ -26,8 +28,9 @@ class AdminHomepage extends Component{
                 <SideBar closeSideBar= {this.closeSideBar}/>
                 
                     <BusinessesToBeVerified />
+                    <AdminsToBeVerified/>
                     
-                    {/* <BusinessUpdate/> */}
+                    <BusinessUpdate/>
             </div>
         )
     }
