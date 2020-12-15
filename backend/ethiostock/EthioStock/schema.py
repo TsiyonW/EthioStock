@@ -21,14 +21,15 @@ import reaction.mutation
 import reaction.query
 import admina.mutation
 import admina.query
-
+import stockapplication.mutation
+import data.query
 import businessowner.subscription
 import investor.subscription
-
 from account.types import AccountType
 from graphql_auth import mutations
 from graphql_auth.schema import MeQuery
 from account.types import AccountType
+
 class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
     user = graphene.Field(AccountType)
 
@@ -65,6 +66,7 @@ class Query(businessowner.query.Query,
         admina.query.Query,
         # comment.query.Query,
         userreport.query.Query,
+        # data.query.Query,
         post.query.Query,
         MeQuery,
         graphene.ObjectType
@@ -83,6 +85,7 @@ class Mutation(
     watchlist.mutation.Mutation,
     post.mutation.Mutation,
     reaction.mutation.Mutation,
+    stockapplication.mutation.Mutation,
     graphene.ObjectType
     ):
 

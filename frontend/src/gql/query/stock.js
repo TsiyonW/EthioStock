@@ -46,3 +46,26 @@ query searchStock($search:String!){
       }
 }
 `
+
+
+export const MY_STOCK = gql`
+query{
+    myStock{
+  id 
+  price 
+  closingDate 
+  openingDate 
+  description
+  noOfStock
+  serviceChargePercentage
+  approved 
+  closed
+  sells
+  buys
+  owner{
+    id
+  }
+  createdAt
+  minAmountOfStockToBuy
+    }
+  }`

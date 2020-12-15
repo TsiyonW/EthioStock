@@ -7,15 +7,9 @@ class MyStockList extends Component{
         const mystockslist = this.props.myStocks;
         return(
             <div className="my-stock-list-container">
-                <p>My stock</p>
+                
                 <table>
-                    <tr>
-                        <th>Market</th>
-                        <th>Change</th>
-                        <th></th>
-                        <th>Sell</th>
-                        <th>Buy</th>
-                    </tr>
+                   
                     {
             console.log(mystockslist)}
                     {

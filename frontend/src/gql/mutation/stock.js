@@ -90,3 +90,24 @@ export const UPDATE_STOCK = gql`
     }
 
 `
+
+
+export const APPLY_FOR_STOCK = gql`
+
+mutation applyStock($stockId:Int!){
+    applyStock(stockId:$stockId){
+        message
+        success
+      application{
+        applier{
+          id
+          username
+        }
+        stock{
+          noOfStock
+          id
+        }
+      }
+    }
+  }
+`

@@ -10,13 +10,13 @@ import {
     CalendarOutlined ,
     CloseCircleOutlined,
   } from '@ant-design/icons';
-class Sidebar extends Component{
+class SidebarA extends Component{
 
     render(){
         const closeSideBar = this.props.closeSideBar;
         const {user} = this.props
         return(
-            <div className="sidebar-container" id="sidebar-container-s">
+            <div className="sidebar-container" id="sidebar-container-s" style={{zIndex:3}}>
                 <div className="title-c"> <button className="sidebar-close" onClick={closeSideBar}><CloseCircleOutlined /></button><br/><p className="title">EthioStock</p></div>
                 <div className="user-profile">
 
@@ -29,7 +29,8 @@ class Sidebar extends Component{
                     <br/>
                     <ul>
                         <li><Link to = '/mystock'><CloseCircleOutlined  className="like-icon"/>My Stock</Link></li>
-                        <li><Link to = '/mystock'><FileDoneOutlined  className="like-icon"/>Watchlist</Link></li>
+                        <li><Link to = '/watchlist'><FileDoneOutlined  className="like-icon"/>Watchlist</Link></li>
+                        <li><Link to = '/viewstock'><FileDoneOutlined  className="like-icon"/>View Stocks</Link></li>
                         <li><Link to = '/newsfeed'><LikeOutlined  className="like-icon"/>News Feed</Link></li>
                         <li><Link to = '/mystock'><AreaChartOutlined  className="like-icon"/>Trade Markets</Link></li>
                         <li><Link to = '/mystock'><CalendarOutlined  className="like-icon"/>Open Today</Link></li>
@@ -53,4 +54,4 @@ class Sidebar extends Component{
     }
 }
 
-export default withAuth(Sidebar);
+export default withAuth(SidebarA);

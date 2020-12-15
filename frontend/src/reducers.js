@@ -5,6 +5,9 @@ const userInitialState = {
 const stockInitialState = {
     stock:[]
 }
+const adminNotVerifiedInitialState={
+
+}
 function stockReducer(state = stockInitialState, action){
 
     switch(action.type){
@@ -32,10 +35,22 @@ function userReducer(state = userInitialState, action){
             return state
     }
 }
+function adminsNotVerifiedReducer(state = adminNotVerifiedInitialState, action){
+    switch(action.type){
+        case "adminsNotVerified/ADDED":
+            return{
+                ...state,
+                adminsNotVerified:action.payload
+            }
+        default:
+            return state
+    }
+}
 
 const rootReducer = combineReducers({
     stock:stockReducer,
-    users:userReducer
+    users:userReducer,
+    adminsNotVerified:adminsNotVerifiedReducer
 });
 
 export default rootReducer;

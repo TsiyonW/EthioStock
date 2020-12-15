@@ -3,7 +3,7 @@ import withAuth from '../../routers/withAuth'
 import HeaderA from '../Admin/AdminHeader'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
-import SideBar from "../Admin/SidebarAdmin";
+import SideBarA from "../Admin/Sidebar";
 import BusinessUpdate from '../Subscriptions/SubscribeCreate'
 
 import BusinessesToBeVerified from './BusinessesToBeVerified.js'
@@ -25,7 +25,7 @@ class BusinessesToBeVerifiedPage extends Component{
         return(
             <div>
                 <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-                <SideBar closeSideBar= {this.closeSideBar}/>
+                <SideBarA closeSideBar= {this.closeSideBar}/>
                 
                     <BusinessesToBeVerified />
                     

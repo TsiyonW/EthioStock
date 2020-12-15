@@ -4,7 +4,7 @@ import HeaderA from '../Admin/AdminHeader'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
 import ReportsToBeResolved from './ReportsToBeResolved'
-import SideBar from "../Admin/SidebarAdmin";
+import SideBarA from "../Admin/Sidebar";
 class ReportsToBeResolvedPage extends Component{
     handleLogout=(e)=>{
         auth.logOut()
@@ -22,7 +22,7 @@ class ReportsToBeResolvedPage extends Component{
         return(
             <div>
                 <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-                <SideBar closeSideBar= {this.closeSideBar}/>
+                <SideBarA closeSideBar= {this.closeSideBar}/>
                 
                     <ReportsToBeResolved />
                     

@@ -4,7 +4,7 @@ import HeaderA from './AdminHeader'
 import AdminsToBeVerified from './AdminsToBeVerified'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
-import SideBar from "./SidebarAdmin";
+import SideBarA from "./Sidebar";
 import BusinessUpdate from '../Subscriptions/SubscribeCreate'
 // import AdminToBeVerified from './AdminToBeVerified'
 class BusinessesToBeVerified extends Component{
@@ -24,7 +24,7 @@ class BusinessesToBeVerified extends Component{
         return(
             <div>
                 <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-                <SideBar closeSideBar= {this.closeSideBar}/>
+                <SideBarA closeSideBar= {this.closeSideBar}/>
                 
                     <AdminsToBeVerified/>
                     

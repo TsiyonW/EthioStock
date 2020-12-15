@@ -148,8 +148,7 @@ const ChangePassword = (props) => {
 
               <Form.Item>
                 <Button type="primary" htmlType="submit">
-                  {" "}
-                  Reset Password{" "}
+                  Reset Password
                 </Button>
               </Form.Item>
             </Form>

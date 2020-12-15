@@ -1,31 +1,154 @@
-import React, {Component} from 'react'
-import withAuth from '../../routers/withAuth'
-import HeaderI from './InvestorHeader'
-import auth from '../../Auth'
-import {Redirect} from 'react-router-dom'
-class InvestorHomepage extends Component{
-    handleLogout=(e)=>{
-        auth.logOut()
-        return(<Redirect to="/login" />)
-        // this.props.history.push('/login')
-    }
-    displaySideBar=()=>{
-        document.getElementById("sidebar-container-s").style.display = "block";
-    }
-    closeSideBar=()=>{
-        document.getElementById("sidebar-container-s").style.display = "none";
-    }
-    render(){
-        const userProfile = this.props.user
-   
-        return(
-            <div>
-                <HeaderI handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+import React, { Component } from "react";
+import "../../styles/styles.scss";
+import graph from "../../img/bg.jpg";
+import HeaderI from "../Investor/InvestorHeader";
+import Notifications from "../Notification/NotificationList";
 
-                <p> Investor homepage</p>
-            </div>
-        )
-    }
+import { Affix, Button, Layout, Card, Row, Col } from "antd";
+import {
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+} from "@ant-design/icons";
+import SideBarI from './Sidebar'
+const { Footer } = Layout;
+// const { Meta } = Card;
+
+class InverstorHomepage extends Component {
+  state = {
+    searchField: "",
+  };
+  displaySideBar=()=>{
+    document.getElementById("sidebar-container-s").style.display = "block";
+}
+closeSideBar=()=>{
+    document.getElementById("sidebar-container-s").style.display = "none";
+}
+  render() {
+    return (
+      <div>
+          <SideBarI closeSideBar= {this.closeSideBar}/>
+           
+        <div className="publichomepage-container">
+          <Affix offsetTop={0} onChange={(affixed) => console.log(affixed)}>
+            <HeaderI
+              handleLogout={this.handleLogout}
+              headerButtons={false}
+              displaySideBar={this.displaySideBar}
+            />
+  
+          </Affix>
+             
+          <div className="container">
+            <Affix offsetTop={120} onChange={(affixed) => console.log(affixed)}>
+              <Notifications />{" "}
+            </Affix>
+          </div>
+          <div>
+            <Row>
+              <Col>
+                <Card
+                  title="Habesha Beer"
+                  extra={
+                    <Button type="danger">
+                      <b>-</b>
+                    </Button>
+                  }
+                  style={{ width: 300, marginLeft: 20, marginTop: 20 }}
+                  cover={<img alt="example" src={graph} />}
+                  actions={[
+                    <div>
+                      <p>
+                        <span className="sell-indicator">
+                          <DoubleRightOutlined className="bold-icon" />
+                          Sell
+                        </span>
+                        <span className="sell-figure">52.56</span>
+                        <span className="buy-indicator">
+                          <DoubleLeftOutlined className="bold-icon" />
+                          Buy
+                        </span>
+                        <span className="buy-figure">52.56</span>
+                      </p>
+                    </div>,
+                  ]}
+                ></Card>
+              </Col>
+              <Col>
+                <Card
+                  title="Habesha Beer"
+                  extra={
+                    <Button type="danger">
+                      <b>-</b>
+                    </Button>
+                  }
+                  style={{ width: 300, marginLeft: 20, marginTop: 20 }}
+                  cover={<img alt="example" src={graph} />}
+                  actions={[
+                    <div>
+                      <p>
+                        <span className="sell-indicator">
+                          <DoubleRightOutlined className="bold-icon" />
+                          Sell
+                        </span>
+                        <span className="sell-figure">52.56</span>
+                        <span className="buy-indicator">
+                          <DoubleLeftOutlined className="bold-icon" />
+                          Buy
+                        </span>
+                        <span className="buy-figure">52.56</span>
+                      </p>
+                    </div>,
+                  ]}
+                ></Card>
+              </Col>
+
+              <Col>
+                <Card
+                  title="Habesha Beer"
+                  extra={
+                    <Button type="danger">
+                      <b>-</b>
+                    </Button>
+                  }
+                  style={{ width: 300, marginLeft: 20, marginTop: 20 }}
+                  cover={<img alt="example" src={graph} />}
+                  actions={[
+                    <div>
+                      <p>
+                        <span className="sell-indicator">
+                          <DoubleRightOutlined className="bold-icon" />
+                          Sell
+                        </span>
+                        <span className="sell-figure">52.56</span>
+                        <span className="buy-indicator">
+                          <DoubleLeftOutlined className="bold-icon" />
+                          Buy
+                        </span>
+                        <span className="buy-figure">52.56</span>
+                      </p>
+                    </div>,
+                  ]}
+                ></Card>
+              </Col>
+            </Row>
+          </div>
+          <Footer
+            style={{
+              textAlign: "center",
+              height: "auto",
+              marginTop: "200%",
+              background: "#CEECE8",
+            }}
+          >
+            Ethiostock ©2020{" "}
+          </Footer>
+          <br />{" "}
+        </div>
+
+        {/* <Footer style={{ textAlign: 'center'  , marginTop:'auto' ,background:'#CEECE8'}}>Ethiostock ©2020 </Footer> */}
+      </div>
+    );
+  }
 }
 
-export default withAuth(InvestorHomepage);
+export default InverstorHomepage;

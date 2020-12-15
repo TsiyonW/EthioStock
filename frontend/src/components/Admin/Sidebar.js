@@ -11,12 +11,12 @@ import {
   CalendarOutlined,
   CloseCircleOutlined,
 } from "@ant-design/icons";
-class Sidebar extends Component {
+class SidebarA extends Component {
   render() {
     const closeSideBar = this.props.closeSideBar;
     const { user } = this.props;
     return (
-      <div className="sidebar-container" id="sidebar-container-s">
+      <div className="sidebar-container" id="sidebar-container-s" style={{zIndex:3}}>
         <div className="title-c">
           {" "}
           <button className="sidebar-close" onClick={closeSideBar}>
@@ -97,4 +97,4 @@ class Sidebar extends Component {
   }
 }
 
-export default withAuth(Sidebar);
+export default withAuth(SidebarA);

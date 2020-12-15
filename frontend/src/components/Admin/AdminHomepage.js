@@ -5,8 +5,9 @@ import BusinessesToBeVerified from '../Businessowner/BusinessesToBeVerified.js'
 import AdminsToBeVerified from './AdminsToBeVerified'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
-import SideBar from "./SidebarAdmin";
+import SideBarA from "./Sidebar";
 import BusinessUpdate from '../Subscriptions/SubscribeCreate'
+// import store from '../../store'
 // import AdminToBeVerified from './AdminToBeVerified'
 class AdminHomepage extends Component{
     handleLogout=(e)=>{
@@ -20,12 +21,14 @@ class AdminHomepage extends Component{
         document.getElementById("sidebar-container-s").style.display = "none";
     }
     render(){
+        // const { users } = store.getState();
+        
         const userProfile = this.props.user
    
         return(
             <div>
                 <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-                <SideBar closeSideBar= {this.closeSideBar}/>
+                <SideBarA closeSideBar= {this.closeSideBar}/>
                 
                     <BusinessesToBeVerified />
                     <AdminsToBeVerified/>

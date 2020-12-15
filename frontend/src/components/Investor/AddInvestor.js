@@ -1,21 +1,21 @@
 import React ,{Component} from 'react';
-import { Form, Input,Modal, Button,} from 'antd';
+import { Form, Input,Modal, Button ,Card ,Col, Row,Select} from 'antd';
 import { Redirect } from "react-router-dom";
 import { Mutation } from "@apollo/client/react/components";
 import { ADD_INVESTOR_INFO } from '../../gql/mutation/investor'
 import 'antd/dist/antd.css';
 import '../../styles/styles.scss';
-import HeaderI from './InvestorHeader'
+// import HeaderI from './InvestorHeader'
 import auth from '../../Auth'
 
-import SideBar from "./Sidebar";
+import bg from '../../img/bg.jpg';
+import SideBarA from "./Sidebar";
 import withAuth from "../../routers/withAuth";
 import store from '../../store'
 // import auth from "../Auth";
 const FormItem = Form.Item;
-// const Option = Select.Option;
-// const RadioGroup = Radio.Group;
 
+const { Option } = Select;
 class AddInvestorInfo extends Component{
   state = {
     investorDrivingLicenceId :'',
@@ -103,6 +103,18 @@ closeSideBar=()=>{
   
 
   render(){
+    const prefixSelector = (
+      <Form.Item name="prefix" noStyle>
+            <Select
+              style={{
+                width: 70,
+              }}
+            >
+              <Option value="251">+251</Option>
+            </Select>
+          </Form.Item>
+        );
+
     const { 
       investorDrivingLicenceId  ,
       investorKebele  ,
@@ -131,13 +143,15 @@ closeSideBar=()=>{
         <Redirect to='/investorHomepage'/>
       )
     }
-    const userProfile = this.props.user
+    // const userProfile = this.props.user
+
    
     return(
       
-      <div className = "signup-container ">
-          <HeaderI handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-          <SideBar closeSideBar= {this.closeSideBar}/>
+      <div >
+          <Card bordered={false} cover={<img alt="example" src={bg}  style={{   transparent :1 , marginTop:-280 ,opacity: 0.3 , height:500 , display:"block" ,} }/> }></Card>
+          <SideBarA closeSideBar= {this.closeSideBar}/>
+          
                 
 <Modal
 title="User Registration"
@@ -205,8 +219,8 @@ footer={
 
 
 </Modal>
-        <div className = "signup-content">               
-          <h1>Investor Info</h1>
+                      
+      <div  >  
           <p  className="authentication-error">{resultMessage}</p>
                 
           <Form  ref={this.formRef} name="add_investor_info" onFinish={this.onFinish}>
@@ -217,63 +231,57 @@ footer={
             <p>Investor woreda</p>
             <p>Investor subcity</p>
             <p>Investor address</p> */}
+
+
+            <Card bordered={false}   style={{width:1250 , textAlign:"center"  ,opacity:0.6, marginLeft:90 ,marginTop:-130 , height:650 ,background:'#f9f9f9'  }}> <h2 style={{color:"Black"}}>Investor Information Form</h2>
+
+<Row gutter={16}>
+      <Col span={8} style={{padding:30}}>
+
+   <div >
+   <Card style={{ width: 622 , height :520 ,marginLeft:-45 , marginTop:-33}}><br/>
+            {/* 
           
+           
+          
+            
+          
+                  {/* <h2>RESPONDENT OR REPRESENTATIVE INFO:</h2> */}
+                <div style={{ marginBottom: 16 , width:550 }}>
+             <Form.Item  name="investorResidentId"  label="Resident ID number" 
+                      rules={[{required: true ,max:25, message: 'Kebele ID number shouldn\'t be more than 10 characters!',}]}>
+                    <Input  />
+                  </Form.Item> 
+                 
+                  <Form.Item  name="investorDrivingLicenceId"  label="Driving Licence ID" 
+                                rules={[{max:25, message: 'Driving Licence shouldn\'t be more than 25 characters!',}, ]}
+                              >
+                        <Input />
+                      </Form.Item>
+           
+                       <Form.Item  name="investorPassportNumber"  label="Passport Number" 
+                                    rules={[{max:10, message: 'Passport Number shouldn\'t be more than =10 characters!',}, ]}
+                                  >
+                            <Input />
+                            
+                          
+                          </Form.Item>
             <Form.Item  name="investorKebele"  label="Kebele" 
                       rules={[{required: true, message: 'Please input your Kebele!',}, ]}
                     >
               <Input />
-            </Form.Item>  
-
-            <Form.Item  name="investorHouseNo"  label="House Number" 
-                      rules={[{max:5, message: 'House number shouldn\'t be more than 5 characters!',}, ]}
-                    >
-              <Input />
             </Form.Item> 
-
-            <Form.Item  name="investorOccupation"  label="Occupation" 
-                      rules={[{max:25, message: 'Occupation shouldn\'t be more than 25 characters!',}, ]}
-                    >
-              <Input />
-            </Form.Item> 
-
-            <Form.Item  name="investorResidentId"  label="Resident ID number" 
-                      rules={[{max:25, message: 'Kebele ID number shouldn\'t be more than 10 characters!',}
-                    ]}
-                    >
-              <Input />
-              {/* <span>OR</span> */}
-            </Form.Item> 
-            <Form.Item  name="investorDrivingLicenceId"  label="Driving Licence ID" 
-                      rules={[{max:25, message: 'Driving Licence shouldn\'t be more than 25 characters!',}, ]}
-                    >
-              <Input />
-            </Form.Item> 
-            <Form.Item  name="investorPassportNumber"  label="Passport Number" 
-                      rules={[{max:10, message: 'Passport Number shouldn\'t be more than =10 characters!',}, ]}
-                    >
-              <Input />
-              
-            {/* <span>OR</span> */}
-            </Form.Item>
-            <Form.Item  name="investorNationality"  label="Nationality" 
-                      rules={[{required: true, message: 'Please input Nationality!',},
-                        
-                        {max:20, message: 'Nationality shouldn\'t be more than 20 characters!',}, ]}
-                    >
-              <Input />
-            </Form.Item>
-                  {/* <h2>RESPONDENT OR REPRESENTATIVE INFO:</h2> */}
-            <Form.Item  name="respondentFirstName"  label="First Name" 
-                      rules={[{required: true, message: 'Please input respondent or representative firstname!',},
-                        {max:25, message: 'First Name shouldn\'t be more than 25 characters!',}, ]}
-                    >
-              <Input />
-            </Form.Item>
-            <Form.Item  name="respondentMiddleName"  label="Middle Name" 
+              <Form.Item  name="respondentFirstName"  label="First Name    " 
+                                    rules={[{required: true, message: 'Please input respondent or representative firstname!',},
+                                      {max:25, message: 'First Name shouldn\'t be more than 25 characters!',}, ]}
+                                  >
+                            <Input />
+                          </Form.Item>
+                   <Form.Item  name="respondentMiddleName"  label="Middle Name" 
                       rules={[{required: true, message: 'Please input respondent or representative middlename!',},
                       {max:25, message: 'Middle Name shouldn\'t be more than 25 characters!',}, ]}
                     >
-              <Input />
+              <Input  />
             </Form.Item>
 
             <Form.Item  name="respondentLastName"  label="Last Name" 
@@ -282,24 +290,52 @@ footer={
                     >
               <Input />
                   </Form.Item>
-            <Form.Item  name="respondentPhoneNo"  label="Phone Number" 
-                      rules={[
-                        {required: true, message: 'Please input respondent or representative phone number!',},
-                        {max:9, message: 'Please input phone number!',}, 
-                        {min:9, message: 'Please input phone number',}, 
-                    
-                    ]}
-                    >
-              <Input type="number" />
-            </Form.Item>
-                
-
-            <Form.Item  name="respondentKebele"  label="Kebele" 
-                      rules={[{required: true, message: 'Please input respondent or representative\' Kebele!',},
-                      {max:6, message: 'Kebele shouldn\'t be more than 6 characters!',}, ]}
+                  <Form.Item  name="investorHouseNo"  label="House Number" 
+                      rules={[{max:5, message: 'House number shouldn\'t be more than 5 characters!',}, ]}
                     >
               <Input />
             </Form.Item>  
+            </div>
+
+ 
+              
+
+             
+            
+ 
+            </Card>
+
+   </div>
+   </Col>
+
+
+
+
+
+
+   <Col span={8} style={{marginLeft:174 , padding:30 }}>
+   <div >
+
+    
+
+   <Card style={{ width: 622 , height :520  , marginTop:-33}}><br/>
+            <Form.Item  name="investorOccupation"  label="Occupation" 
+                      rules={[{max:25, message: 'Occupation shouldn\'t be more than 25 characters!',}, ]}
+                    >
+              <Input />
+            </Form.Item> 
+            <div style={{ marginBottom: 16 , width:500 }}>
+                    <Form.Item  name="phoneNo"  label="Phone Number"
+                      rules={[
+                        {required: true,message: 'Please input your phone number!', }, ]}
+                    >
+                      <Input addonBefore={prefixSelector} style={{width: '100%',}} />
+                    </Form.Item>
+                    </div>
+                
+
+ 
+             
 
             <Form.Item  name="respondentHouseNo"  label="House Number" 
                       rules={[{max:5, message: 'House number shouldn\'t be more than 5 characters!',}, ]}
@@ -318,14 +354,14 @@ footer={
                     ]}
                     >
               <Input />
-              {/* <span>OR</span> */}
+              
             </Form.Item> 
             <Form.Item  name="respondentDrivingLicenceId"  label="Driving Licence ID" 
                       rules={[{max:25, message: 'Driving Licence shouldn\'t be more than 25 characters!',}, ]}
                     >
               <Input />
             </Form.Item> 
-            {/* <span>OR</span> */}
+            
             <Form.Item  name="respondentPassportNumber"  label="Passport Number" 
                       rules={[{max:10, message: 'Passport Number shouldn\'t be more than =10 characters!',}, ]}
                     >
@@ -335,24 +371,29 @@ footer={
             <FormItem name="profilePic"   label="Profile Picture" extra="Upload Profile Picture">
             <Input type="file" className="mb2" onChange={e=>this.setState({profilePic:e.target.files[0]})}/>
           </FormItem>
+          </Card>
+          <br/>
 
-            <FormItem>
-              <Button type="primary" htmlType="submit" >Save</Button>
-            </FormItem>            
-            
-            {/* <FormItem>
-              <Button type="primary"  onClick={this.onSkip}>Skip</Button>
-            </FormItem> */}
+            <FormItem > 
+              <Button  htmlType="submit" style={{ background: "rgb(46,175,143)", borderColor: "rgb(46,175,143)" ,color:'white', width:300 ,marginLeft:-350,}}>SAVE</Button>
+           
+   </FormItem> 
+   
+   </div>
+</Col>
 
 
+</Row>
 
-
-
+</Card>
 
 
           </Form>
-
-        </div>      
+          
+  
+          </div> 
+          <br/> <br/> <br/> <br/> <br/> <br/>
+         
       </div> 
     );
   }

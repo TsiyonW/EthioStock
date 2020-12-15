@@ -94,16 +94,18 @@ AUTHENTICATION_BACKENDS = [
 
 AUTH_USER_MODEL = 'account.Account'
 
+
 # Application definition
 
 INSTALLED_APPS = [
-    'investor.apps.InvestorConfig',
+    'stockapplication',
+    'data',
     'account',
-    'businessowner.apps.BusinessownerConfig',
+    'businessowner',
     'admina',
     'comment',
     'follower',
-    # 'investor',
+    'investor',
     'post',
     'prediction',
     'reaction',

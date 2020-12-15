@@ -6,6 +6,8 @@ from graphene_subscriptions.events import CREATED, UPDATED, DELETED
 
 class Subscription(graphene.ObjectType):
     businessOwner_created = graphene.Field(BusinessownerType)
+    print("got here btw")
+    print("and the business is ", businessOwner_created)
     async def resolve_businessOwner_created(root,info):
         return root.filter(
             lambda event:

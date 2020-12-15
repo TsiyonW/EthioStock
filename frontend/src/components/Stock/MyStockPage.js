@@ -1,11 +1,15 @@
-import React , {Component} from "react";
-import Header from './Header'
-import auth from '../Auth'
-import RecentTradesList from "./RecentTrade";
+import React from "react";
+import HeaderB from '../Businessowner/BusinessHeader'
+import auth from '../../Auth'
+import RecentTradesList from "../RecentTrade/RecentTrade";
 import MyStockList from "./MyStockList";
-import SideBar from './Sidebar';
-class MyStock extends Component{
-    state = {
+import SideBarB from '../Businessowner/Sidebar';
+import withAuth from "../../routers/withAuth";
+
+import { MY_STOCK } from "../../gql/query/stock";
+
+ const MyStock =(props)=>{
+    const state = {
         sidebarOpen:false,
         mystocks:[{
             id:1,
@@ -30,31 +34,48 @@ class MyStock extends Component{
         }],
         
     }
-    logout= (e)=>{
+    const logout= (e)=>{
         auth.logOut()
-        this.props.history.push('/login')
+        props.history.push('/login')
     }
-    displaySideBar=()=>{
+    const displaySideBar=()=>{
         document.getElementById("sidebar-container-s").style.display = "block";
     }
-    closeSideBar=()=>{
+    const closeSideBar=()=>{
         document.getElementById("sidebar-container-s").style.display = "none";
     }
-    render(){
         return(
             <div>
                 <div className="homepage-header">
-                    <Header handleLogout = {this.logout} headerButtons={false} displaySideBar = {this.displaySideBar}/>
+                    <HeaderB handleLogout = {logout} headerButtons={false} displaySideBar = {displaySideBar}/>
                 </div>
                 <div>
-                    <MyStockList myStocks={this.state.mystocks}/>
+                <Query query = {MY_STOCK}>
+                {({loading,error,data})=>{
+                    if(loading) return <div>Fetching</div>
+                    if(error) return <div>Error: {console.log(error)}</div>
+                    if(!data.myStock){
+                        return <div>You dont have a stock created!</div>
+                    }
+                    const myStocks = data.myStock
+                    return(
+                        <div>
+                            <Row>
+                            {myStocks.map(stock=><Stock key = {stock.stock.id} stockDetail = {stock.stock}></Stock>)}
+                            </Row>
+                        </div>
+                    )
+                }
+                }
+            </Query> 
+                    <MyStockList myStocks={state.mystocks}/>
                     <RecentTradesList/>
                 </div>
-                <SideBar closeSideBar= {this.closeSideBar}/>
+                <SideBarB closeSideBar= {closeSideBar}/>
                 
             </div>
         )
     }
-}
 
-export default MyStock;
+
+export default withAuth(MyStock);

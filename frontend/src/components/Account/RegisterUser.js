@@ -454,7 +454,7 @@ class RegisterUser extends React.Component {
                   </Form>
                   <div style={{ marginLeft: "25%", width: 500 }}>
 
-                  <p>Or</p><Link id="login-in-signup" to='/login'>Login</Link>
+                  Already have an account? <Link id="login-in-signup" to='/login'>Login</Link>
                   </div>
                 </Card>
               </div>

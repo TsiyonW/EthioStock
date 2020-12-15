@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
 import withAuth from '../../routers/withAuth'
-import HeaderB from './BusinessHeader'
+import HeaderI from '../Investor/InvestorHeader'
+import News from '../News/News'
 import auth from '../../Auth'
 import bg from '../../img/bg.jpg';
-import {Layout,Avatar,Input, Menu , Button,Divider,Spin ,Statistic, Card, Row, Col, Affix } from 'antd';
-import { MenuOutlined,LogoutOutlined ,FormOutlined,LineChartOutlined,UserOutlined,ReadFilled,PieChartFilled ,ArrowUpOutlined, ArrowDownOutlined ,LikeOutlined } from '@ant-design/icons';
-import { BrowserRouter as Router,Switch, Link } from "react-router-dom";
+import bg1 from '../../img/t2.jpg';
+import {Layout,Avatar,Menu , Button,Divider,Spin ,Statistic, Card, Row, Col, Affix } from 'antd';
+import { LineChartOutlined,UserOutlined,ReadFilled,PieChartFilled ,ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import {  Link } from "react-router-dom";
 import {Redirect} from 'react-router-dom'
 import Notifications from '../Notification/NotificationList'
-import RecentTrade from '../RecentTrade/RecentTradesList'
-const { Search } = Input;
-const{ Header , Footer  ,Content } = Layout;
+import SideBarB from './Sidebar'
+const{ Footer  ,Content } = Layout;
 
 class BusinessHomepage extends Component{
     handleLogout=(e)=>{
@@ -34,8 +35,8 @@ class BusinessHomepage extends Component{
            
             <div >
                   
-                <HeaderB handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-
+                <HeaderI handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+<SideBarB onClose={this.closeSideBar}/>
                 <Layout>
             <Content>
                 <Affix>
@@ -44,7 +45,7 @@ class BusinessHomepage extends Component{
                  <div className="site-statistic-demo-card">
                     <Row style={{width:400 ,height:40 , marginTop:-13}} >
                       <Col >
-                        <Card>
+                        <Card style={{ marginTop:20}} >
                           <Statistic
                             title="Active"
                             value={11.28}
@@ -56,7 +57,7 @@ class BusinessHomepage extends Component{
                         </Card>
                       </Col>
                       <Col >
-                        <Card>
+                        <Card style={{ marginTop:20}} >
                           <Statistic
                             title="Idle"
                             value={9.3}
@@ -70,22 +71,21 @@ class BusinessHomepage extends Component{
                     </Row>
                 </div>
                   
-                <p style={ {marginTop:-90 , marginLeft:150 ,fontSize:20 }}  img src ={bg}><Divider type="vertical" /><h><strong>CompanyName</strong></h> <br/> </p>
-                <span> <Avatar shape="square" icon='p' size={140}  icon={<UserOutlined /> }  style={{marginTop:-40 , marginLeft:5 }}></Avatar> </span>
-                            
-                
-                  <Button style={{ marginTop: 16, marginLeft:900 }} type="primary">
+                <div style={ {marginTop:-100 , marginLeft:150 ,fontSize:20 }} className="p_h"><Divider type="vertical" /><p><strong>CompanyName</strong></p>  </div>
+                <div> <Avatar shape="square" size={140}  icon={<UserOutlined /> }  style={{marginTop:-35 , marginLeft:5 }}></Avatar> </div>
+                <Button style={{ marginTop: -200, marginLeft:1300 }} type="primary">
                         TRADE
                   </Button>
+                            
+                
+                  
                  
                  
                  
                   <Divider></Divider>
 
-                 
+                  <br/>
                    <div className="Mid-menu">
-                        <Router>   
-                            <Switch>
                               <Menu mode="horizontal" defaultSelectedKeys={['1']} >
                                     <Menu.Item key="1" ><Link to="/BusProfile"><ReadFilled />Feed</Link></Menu.Item>
                                     <Menu.Item key="2" active><Link to="/"><ReadFilled />Stats</Link></Menu.Item>
@@ -93,8 +93,7 @@ class BusinessHomepage extends Component{
                                     <Menu.Item key="4"><Link to="/Research"><LineChartOutlined />Research</Link></Menu.Item>
                                     
                               </Menu>
-                            </Switch>
-                         </Router>  
+                              
                     </div>
               </div>
              
@@ -114,19 +113,22 @@ class BusinessHomepage extends Component{
 
 
                     
-            <Content style ={{height :500 , width:1040, background:'white', marginLeft:0,marginTop:10 ,paddingTop :60, overflowWrap:10 ,position:"relative"}}>
-              <Spin size="large" style={{ marginLeft:500 , marginTop:130}} tip="Loading Top Feeds..." />
+            <Content style ={{height :'auto' , width:1040, background:'white', marginLeft:10,marginTop:10 ,paddingTop :60, overflowWrap:10 ,position:"relative"}}>
+              <Card  cover={<img alt="example" src={bg}/>}></Card>
+              <News />
+              {/* <Card title="Habesha Beer" extra={<Button type="danger"><b>-</b></Button>} style={{ width: 300 , marginLeft:20 , marginTop:20 }}
+                        cover={<img alt="example" src={graph}/>} */}
+           
+                
+            </Content>
+            <Content style ={{height :'auto' , width:1040, background:'white', marginLeft:5,marginTop:10 ,paddingTop :60, overflowWrap:10 ,position:"relative"}}>
+              <Card  cover={<img alt="example" src={bg1}/>}></Card>
+              <News />
             
            
                 
             </Content>
-            <Content style ={{height :500 , width:1040, background:'white', marginLeft:0,marginTop:10 ,paddingTop :60, overflowWrap:10 ,position:"relative"}}>
-              <Spin size="large" style={{ marginLeft:500 , marginTop:130}} tip="Loading Top Feeds..." />
-            
-           
-                
-            </Content>
-            <Content style ={{height :500 , width:1040, background:'white', marginLeft:0,marginTop:10 ,paddingTop :60, overflowWrap:10 ,position:"relative"}}>
+            <Content style ={{height :500 , width:1040, background:'white', marginLeft:5,marginTop:10 ,paddingTop :60, overflowWrap:10 ,position:"relative"}}>
               <Spin size="large" style={{ marginLeft:500 , marginTop:130}} tip="Loading Top Feeds..." />
             
            

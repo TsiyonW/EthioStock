@@ -1,10 +1,4 @@
 import React , {Component} from "react";
-// import Header from '../Investor/Header'
-// import auth from '../../Auth'
-// import RecentTradesList from "../RecentTrade/RecentTrade";
-// import MyStockList from "../Stock/MyStockList";
-// import SideBar from '../Account/Sidebar';
-// import userIcon from '../../img/usericon.png';
 import graph from '../../img/istock.jpg';
 import { Statistic } from 'antd';
 import { Card, Col, Row } from 'antd';

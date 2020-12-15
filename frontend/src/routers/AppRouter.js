@@ -12,11 +12,12 @@ import RegisterUser from '../components/Account/RegisterUser'
 import Profile from '../components/Account/Profile'
 import CreatePost from '../components/Post/CreatePost'
 import UpdateInvestor from '../components/Investor/UpdateInvestor'
-// import InitiatedStock from '../components/InitiatedStock';
+import InitiatedStock from '../components/Stock/InitiatedStock';
+import Data from '../components/Prediction/Data'
 // import ForgetPassword from '../components/ForgetPassword';
 // // import { AUTH_TOKEN } from "../constants";
-// import NewsFeed from "../components/NewsFeed";
-// import MyStockPage from "../components/MyStockPage";
+import NewsFeed from "../components/News/NewsFeed";
+// import MyStockPage from "../components/Stock/MyStockPage";
 import ViewBusiness from '../components/Businessowner/ViewBusiness'
 import ViewInvestor from '../components/Investor/ViewInvestor'
 import ViewAdmin from '../components/Admin/ViewAdmin'
@@ -62,6 +63,7 @@ const AppRouter = () => (
           <Route path="/watchlist" component={Watchlist}/>
           <Route path="/verifyadmin" component={VerifyAdmin}/>
           <Route path="/verifymyadminaccount" component={VerifyMyAdminAccount}/>
+          <Route path="/data" component={Data}/>
           
           <Route path='/addinvestorinfo' component={AddInvestorInfo}/>
           <Route path='/addbusinessinfo' component={AddBusinessInfo}/>
@@ -80,10 +82,10 @@ const AppRouter = () => (
           <Route path="/adminstobeverified" component={AdminsToBeVerified}/>
           <Route path="/businessestobeverified" component={BusinessesToBeVerifiedPage}/>
           
-       {/*  
+        {/* <Route path="/mystock" component={MyStockPage} /> */}
+        <Route path="/initiatedstock" component={InitiatedStock} />
+        
         <Route path="/newsfeed" component={NewsFeed} />
-        <Route path="/mystock" component={MyStockPage} />
-        <Route path="/initiatedstock" component={InitiatedStock} /> */}
         {/* <Route path='/signupinvestor' component={SignupInvestor}/>
         }
         {/* <Route path='/signupusers' component={SignupUsers}/>

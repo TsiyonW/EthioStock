@@ -1,65 +1,99 @@
-import React from 'react';
-import { Button} from 'antd';
-import '../../styles/styles.scss'
-import { NavLink } from 'react-router-dom';
+
+
+import React from "react";
+import "../../styles/styles.scss";
+import { NavLink } from "react-router-dom";
+import logo from "../../img/logo.png";
 import {
-    HomeOutlined,
-    MenuUnfoldOutlined ,
-    TeamOutlined ,
-    BookOutlined,
-    UserOutlined ,
-    LogoutOutlined ,
-    DollarOutlined 
-  } from '@ant-design/icons';
-import SearchBox from '../Search/SearchBox';
-class HeaderI extends React.Component{
-    state={
-        searchField:'',
-    }
-    
-
-    render(){
-        const headerButtons = this.props.headerButtons;
-        const userType = this.props.userType;
-
-        return (
-            <div className = "header-container">
-                <div className = "header-flex-box">
-
-                    <div className  = "header-flex-box-title">
-                        
-                        <div>
-                            <button className="menu-unfold-btn" onClick={this.props.displaySideBar}>
-                            <MenuUnfoldOutlined  className="menu-unfold-icon"/>
-                            </button>
-                            <span className = "header-title">EthioStock</span>
-                        </div>
-                    </div>
-
-                    <div className = "header-flex-box-search">
-                        <SearchBox placeholder="Search Business" handleChange = {e => this.setState({ searchField: e.target.value })}/>
-                    </div>
-
-                    <div className = "header-flex-box-menu">
-                        <ul>
-                            {userType==="Investor"?<li><NavLink to='/investorhomepage' activeClassName="active-link" ><HomeOutlined  className="header-icon"/>Homepage</NavLink></li>:<span></span>
-                            }
-                            {userType==="Admin"?<li><NavLink to='/adminhomepage' activeClassName="active-link" ><HomeOutlined  className="header-icon"/>Homepage</NavLink></li>:<span></span>
-                            }
-                            {userType==="Businessowner"?<li><NavLink to='/businesshomepage' activeClassName="active-link" ><HomeOutlined  className="header-icon"/>Homepage</NavLink></li>:<span></span>
-                            }
-                            {userType==="Admin"?<li><NavLink to="/homepage" activeClassName="active-link"><TeamOutlined className="header-icon"/>Admins</NavLink></li>
-                            :<p></p>}
-                            
-                            <li><NavLink to="/homepage" activeClassName="active-link"><TeamOutlined  className="header-icon"/>Investors</NavLink></li>
-                            <li><NavLink to='/profile'  activeClassName="active-link"><UserOutlined  className="header-icon"/>My Profile</NavLink></li>
-                            <li><NavLink to='/login' onClick={this.props.handleLogout} ><LogoutOutlined className="header-icon"/>Logout</NavLink></li>
-                        </ul>
-                    </div>
-
-
-                </div>
-                {
+  MenuOutlined,
+  TeamOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  DollarOutlined
+  ,BookOutlined
+} from "@ant-design/icons";
+import {Button } from 'antd'
+import SearchBox from "../Account/SearchBox";
+class HeaderI extends React.Component {
+  state = {
+    searchField: "",
+  };
+ 
+  render() {
+    const headerButtons = this.props.headerButtons;
+    // const userType = this.props.userType;
+    return (
+      <div className="publichomepage-container">
+        <div className="header-flex-box">
+          <div className="header-flex-box-title">
+            <div>
+              <ul>
+                <li
+                  className="menu-unfold-btn"
+                  onClick={this.props.displaySideBar}
+                >
+                  <MenuOutlined size={200} />
+                </li>
+                <li>
+                  {" "}
+                  <img
+                    src={logo}
+                    alt="Logo"
+                    style={{ width: 40, height: 40 }}
+                  />
+                </li>
+                <li>
+                  <span className="header-title">EthioStock</span>
+                </li>
+                <li>
+                  {" "}
+                  <div className="header-flex-box-search">
+                    <SearchBox
+                      placeholder="Search ..."
+                      handleChange={(e) =>
+                        this.setState({ searchField: e.target.value })
+                      }
+                    />
+                  </div>
+                </li>
+                <li>
+                  <ul className="ul-side3">
+                    <li>
+                      <NavLink to="/businesshomepage" activeClassName="active-link">
+                        <TeamOutlined className="header-icon" />
+                        Home
+                      </NavLink>
+                    </li>
+                    {/* <li>
+                      <NavLink to="/verifyadmins" activeClassName="active-link">
+                        <TeamOutlined className="header-icon" />
+                        Admins
+                      </NavLink>
+                    </li> */}
+                    <li>
+                      <NavLink to="/mystock" activeClassName="active-link">
+                        <TeamOutlined className="header-icon" />
+                        My Stock
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/profile" activeClassName="active-link">
+                        <UserOutlined className="header-icon" />
+                        My Profile
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/login" onClick={this.props.handleLogout}>
+                        <LogoutOutlined className="header-icon" />
+                        Logout
+                      </NavLink>
+                    </li>
+                    
+                  </ul>
+                </li>
+              </ul>
+              <div>
+              {
                 headerButtons?
                 <div className = "header-btns">
                  <NavLink to='/createstock' activeClassName ='active-link'><Button className = "create-btn-green"><DollarOutlined />Create Stock</Button></NavLink>
@@ -67,10 +101,14 @@ class HeaderI extends React.Component{
                     
                 </div>:<div><br/><br/><br/><br/><br/><br/></div>
                 }
-
-<br/>
+              </div>
             </div>
-        )
-    }
+          </div>
+        </div>
+
+        <br />
+      </div>
+    );
+  }
 }
 export default HeaderI;

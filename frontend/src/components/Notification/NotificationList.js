@@ -1,25 +1,50 @@
 import React , {Component} from 'react'
-import {
-    BellOutlined
-  } from '@ant-design/icons';
+
+import { Card,Button,notification,Badge } from 'antd';
+import {Link} from 'react-router-dom'
+const close = () => {
+    console.log(
+      'Notification was closed. Either the close button was clicked or duration time elapsed.',
+    );
+  };
+  
+  const openNotification = () => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Button type="primary" size="small" onClick={() => notification.close(key)}>
+        Confirm
+      </Button>
+    );
+    notification.open({
+      message: 'Notification Title',
+      description:
+        'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
+      btn,
+      key,
+      onClose: close,
+    });
+  };
 class NotificationList extends Component{
     render(){
         // notifications = this.props
         return(
+            <>
+         
             <div className="notifications-container">
-                <p className="notification-header"><BellOutlined className="bell-icon"/>Notifications</p>
-                <div className="notification-contents">
-{/* {
-                    notifications.map((notification)=>{
-                        <Notification notificationDetail = {notification}/>
-                    })
-                } */}
-                <p> jfalskfjlkafjl lkjflksdjf l kjfslkja sdfl jflksajfd afjd alskjfd aslfdj lksfdj  fsdfasdf a sdf asfd</p>
-                <p> fskldfja dflaksjfd this sis thing is s o awsome this thing is so awsome this thing is so awsome</p>
-                
+                  < Card title="Notification"  extra={ <Button  onClick={openNotification}><Badge size="default" count={5}>
+      <Link to="/" className="head-example" /></Badge></Button>} >
+                      
+                 
+                 
+            
+   
+            
+              
+               </ Card>
                 </div>
                 
-            </div>
+            
+           </>
         )
     }
 }

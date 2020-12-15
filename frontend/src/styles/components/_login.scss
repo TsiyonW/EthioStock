@@ -89,9 +89,9 @@ h1{
 @mixin login-signup-input-forms {
   input[type = text], input[type = password]{
     padding:3%;
-    width:65%;
-    border-radius: 20px;
-    background-color: $placeholderTextColor;
+    // width:65%;
+    // border-radius: 20px;
+    // background-color: $placeholderTextColor;
     font-size: 20px;
   }
   input::placeholder{

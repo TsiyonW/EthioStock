@@ -1,17 +1,18 @@
-import React ,{Component} from 'react';
-import { Form,Input,Modal,Upload,Button, Radio} from 'antd';
+import React, { Component } from "react";
+import { Form,Input,Modal,Upload,Button, Radio, Card,Row,Col} from 'antd';
 import { Redirect } from "react-router-dom";
-import { UploadOutlined } from '@ant-design/icons';
-import withAuth from '../../routers/withAuth'
-import HeaderB from './BusinessHeader'
-import auth from '../../Auth'
+import { UploadOutlined } from "@ant-design/icons";
+import withAuth from "../../routers/withAuth";
+// import HeaderB from "./BusinessHeader";
+import auth from "../../Auth";
 import { Mutation } from "@apollo/client/react/components";
-import { ADD_BUSINESSOWNER_INFO } from '../../gql/mutation/account'
-import store from '../../store'
-import 'antd/dist/antd.css';
-import '../../styles/styles.scss';
+import { ADD_BUSINESSOWNER_INFO } from "../../gql/mutation/account";
+import store from "../../store";
+import "antd/dist/antd.css";
+import "../../styles/styles.scss";
+// import SideBarB from "./Sidebar";
+import bg from '../../img/bg.jpg';
 
-import SideBar from "./Sidebar";
 const FormItem = Form.Item;
 // const Option = Select.Option;
 const RadioGroup = Radio.Group;
@@ -107,18 +108,17 @@ closeSideBar=()=>{
         <Redirect to='/businesshomepage'/>
       )
     }
-    const userProfile = this.props.user
+    // const userProfile = this.props.user
    
     return(
-      <div className = "signup-container ">                              
+      <div >  
+         
+          <Card bordered={false} cover={<img alt="example" src={bg}  style={{   transparent :1 , marginTop:-100 ,opacity: 0.3 , height:500 , display:"block" ,} }/> }></Card>                            
         
-        <HeaderB handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
 
-        <SideBar closeSideBar= {this.closeSideBar}/>
-                
 
         <div className = "signup-content">
-          <h1>Add Business Owner Info</h1>
+         
           <p  className="authentication-error">{resultMessage}</p>
 
           <Modal
@@ -162,20 +162,27 @@ closeSideBar=()=>{
           </Modal>
 
           <Form ref={this.formRef} onFinish={this.onFinish}>
+          <Card bordered={false}   style={{width:950 , textAlign:"center"  ,opacity:0.6, marginLeft:200 ,marginTop:-160 , height:450 ,background:'#f9f9f9'  }}> <h2 style={{color:"Black"}}>Add Buisness Owner Info</h2>
+
+<Row gutter={16}>
+      <Col span={8} style={{padding:30}}>
+
+   <div >
+   <Card style={{ width: 950 , height :450 ,marginLeft:-45 , marginTop:-30}}><br/>
  
-            <FormItem name="website"  label="website" rules={[{ required: false }]}>
-                <Input style={{ width: '100%' }} type = 'text'/>
+            <FormItem name="Website"  label="Website" rules={[{ required: false }]}>
+                <Input style={{ width: '100%' }} type = 'text' placeholder="Enter Website"/>
             </FormItem>
 
 
 
             <FormItem name="businessName"  label="Business Name" rules={[{ required: true, message:"Business Name is required" }]}>
-                <Input style={{ width: '100%' }} />
+                <Input style={{ width: '100%' }}  placeholder="Enter Buisness Name"/>
             </FormItem>
 
 
             <FormItem name="category" label="category" rules= {[{ required:  true, message:'Please choose a category' }]}>
-              <RadioGroup>
+              <RadioGroup style={{ marginLeft:-500}}>
                 <Radio value="Bank">Bank</Radio>
                 <Radio value="Factory">Factory</Radio>
                 <Radio value="Other">Other</Radio>
@@ -189,7 +196,7 @@ closeSideBar=()=>{
                 valuePropName="file"
               >
               <Upload onChange={this.handleLegalityupload} customRequest={this.doNothing}>
-                <Button icon={<UploadOutlined />}>Upload</Button>
+                <Button icon={<UploadOutlined />} style={{width:200 , marginLeft:-520 , marginTop:-10}}>Upload</Button>
               </Upload>
             </FormItem>         
 
@@ -198,18 +205,26 @@ closeSideBar=()=>{
                 label="Upload Profile Picture "
                 valuePropName="file"
               >
-              <Upload onChange={this.handleProfileupload} customRequest={this.doNothing}>
-                <Button icon={<UploadOutlined />}>Upload</Button>
+              <Upload onChange={this.handleProfileupload} customRequest={this.doNothing} >
+                <Button icon={<UploadOutlined />} style={{width:200, marginLeft:-500, marginTop:-10}}  >Upload</Button>
               </Upload>
             </FormItem>
 
             <FormItem>
-              <Button type="primary" htmlType="submit">Register</Button>
+              <Button type="primary" htmlType="submit"style={{ marginLeft:100}} >Register</Button>
             </FormItem>
+
+            </Card>
+            </div>
+            </Col>
+            </Row>
+            </Card>
           </Form>
+          </div>
+
           
         </div>   
-      </div> 
+     
     );
   }
 }

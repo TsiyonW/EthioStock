@@ -40,8 +40,23 @@ export const ADD_BUSINESSOWNER_INFO = gql`
       legality:$legality
       profilePic:$profilePic
       
+      
     ){
       id
+      account{
+        id
+        userType
+        firstName
+        middleName
+        lastName
+        sex
+        phoneNo
+        subcity
+        woreda
+        email
+        username
+        accountLinked
+      }
       businessName
       category
       website

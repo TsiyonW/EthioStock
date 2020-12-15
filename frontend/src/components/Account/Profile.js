@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header1 from "./Header1";
 import auth from "../../Auth";
 import SideBar from "../Investor/Sidebar";
 import withAuth from "../../routers/withAuth";

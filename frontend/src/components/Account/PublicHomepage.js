@@ -2,9 +2,9 @@ import React , {Component} from "react"
 import '../../styles/styles.scss'
 import Latestmarket from '../News/Latestmarket'
 import Latestnews from '../News/Latestnews'
-import PubAbout from './PubAbout'
+import PubAbout from '../Account/PubAbout'
 import Pbackground from '../../img/t2.png';
-import Header1 from './Header1'
+import Header1 from '../Account/Header1'
 import { Affix, Divider ,Layout} from 'antd';
 const {  Footer } = Layout;
 
@@ -36,9 +36,9 @@ class PublicHomepage extends Component{
                     <div className="text-block1">
                    
                       
-                        <h3 style={{fontSize:40 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700,color:"gray" }}>ETHIOSTOCK</h3><br/>
-                        <h3 style={{fontSize:25 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700,color:"gray"}}>STOCK EXCHANGE ANALYSIS AND PREDICTION</h3><br/>
-                        <h3 style={{fontSize:25 ,color:"gray" }}>In 2020 Ethiopia is planning to set up a stock market.</h3><br/>
+                        <h3 style={{fontSize:40 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700,color:"gray" }}>ETHIOSTOCK</h3>
+                        <h3 style={{fontSize:25 , fontStyle:'bold' ,fontFamily: 'Helvetica' ,fontWeight: 700,color:"gray"}}>STOCK EXCHANGE ANALYSIS AND PREDICTION</h3>
+                        <h3 style={{fontSize:25 ,color:"gray" }}>In 2020 Ethiopia is planning to set up a stock market.</h3>
                         <h3 style={{fontSize:20 ,color:"gray"}}>The stock market is a way for companies to get money by selling parts of their company;</h3>
                         
                    
@@ -58,8 +58,7 @@ class PublicHomepage extends Component{
        
                         
          
-
-<br/>    </div>
+    </div>
 
                 
                     
