@@ -1,17 +1,7 @@
 import React from "react";
-import { Button, Affix, Search } from "antd";
+import {  Affix } from "antd";
 import "../../styles/styles.scss";
 import { NavLink } from "react-router-dom";
-
-import {
-  HomeOutlined,
-  MenuUnfoldOutlined,
-  TeamOutlined,
-  BookOutlined,
-  UserOutlined,
-  LogoutOutlined,
-  DollarOutlined,
-} from "@ant-design/icons";
 import SearchBox from "./SearchBox";
 class Header1 extends React.Component {
   state = {
@@ -19,8 +9,6 @@ class Header1 extends React.Component {
   };
 
   render() {
-    const headerButtons = this.props.headerButtons;
-    const userType = this.props.userType;
 
     return (
       <div>
@@ -50,22 +38,15 @@ class Header1 extends React.Component {
               </li>
               <li>
                 <ul className="ul-side">
+                  
                   <li>
-                    <NavLink
-                      to="/investorhomepage"
-                      activeClassName="active-link"
-                    >
-                      Investor
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/adminhomepage" activeClassName="active-link">
+                    {/* <NavLink to="/adminhomepage" activeClassName="active-link">
                       adminhomepage
-                    </NavLink>
+                    </NavLink> */}
                   </li>
                   <li>
-                    <NavLink to="/profile" activeClassName="active-link">
-                      My Profile
+                    <NavLink to="/signupuser" activeClassName="active-link">
+                      Register
                     </NavLink>
                   </li>
 
@@ -76,32 +57,7 @@ class Header1 extends React.Component {
               </li>
             </ul>
           </Affix>
-          {headerButtons ? (
-            <div className="header-btns">
-              <NavLink to="/createstock" activeClassName="active-link">
-                <Button className="create-btn-green">
-                  <DollarOutlined />
-                  Create Stock
-                </Button>
-              </NavLink>
-              <NavLink to="/createpost" activeClassName="active-link">
-                <Button className="create-btn-white">
-                  <BookOutlined />
-                  Create New Post
-                </Button>
-              </NavLink>
-            </div>
-          ) : (
-            <div>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-            </div>
-          )}
-
+          
           <br />
         </div>
       </div>

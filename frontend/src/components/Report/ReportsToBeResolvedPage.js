@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import withAuth from '../../routers/withAuth'
-import HeaderI from './InvestorHeader'
+import HeaderA from '../Admin/AdminHeader'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
-class InvestorHomepage extends Component{
+import ReportsToBeResolved from './ReportsToBeResolved'
+import SideBar from "../Admin/SidebarAdmin";
+class ReportsToBeResolvedPage extends Component{
     handleLogout=(e)=>{
         auth.logOut()
         return(<Redirect to="/login" />)
-        // this.props.history.push('/login')
     }
     displaySideBar=()=>{
         document.getElementById("sidebar-container-s").style.display = "block";
@@ -20,12 +21,14 @@ class InvestorHomepage extends Component{
    
         return(
             <div>
-                <HeaderI handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-
-                <p> Investor homepage</p>
+                <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+                <SideBar closeSideBar= {this.closeSideBar}/>
+                
+                    <ReportsToBeResolved />
+                    
             </div>
         )
     }
 }
 
-export default withAuth(InvestorHomepage);
+export default withAuth(ReportsToBeResolvedPage);

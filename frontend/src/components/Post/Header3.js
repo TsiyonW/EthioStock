@@ -1,5 +1,5 @@
 import React from 'react';
-import { Affix, Button } from 'antd';
+import {  Button } from 'antd';
 import '../../styles/styles.scss'
 import { NavLink } from 'react-router-dom';
 import logo from '../../img/logo.png';
@@ -12,7 +12,7 @@ import {
     LogoutOutlined ,
     DollarOutlined 
   } from '@ant-design/icons';
-import SearchBox from './SearchBox';
+import SearchBox from '../Account/SearchBox';
 class Header extends React.Component{
     state={
         searchField:'',

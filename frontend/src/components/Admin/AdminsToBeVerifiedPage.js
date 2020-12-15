@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import withAuth from '../../routers/withAuth'
 import HeaderA from './AdminHeader'
-import BusinessesToBeVerified from '../Businessowner/BusinessesToBeVerified.js'
 import AdminsToBeVerified from './AdminsToBeVerified'
 import auth from '../../Auth'
 import {Redirect} from 'react-router-dom'
 import SideBar from "./SidebarAdmin";
 import BusinessUpdate from '../Subscriptions/SubscribeCreate'
 // import AdminToBeVerified from './AdminToBeVerified'
-class AdminHomepage extends Component{
+class BusinessesToBeVerified extends Component{
     handleLogout=(e)=>{
         auth.logOut()
         return(<Redirect to="/login" />)
@@ -27,7 +26,6 @@ class AdminHomepage extends Component{
                 <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
                 <SideBar closeSideBar= {this.closeSideBar}/>
                 
-                    <BusinessesToBeVerified />
                     <AdminsToBeVerified/>
                     
                     <BusinessUpdate/>
@@ -36,4 +34,4 @@ class AdminHomepage extends Component{
     }
 }
 
-export default withAuth(AdminHomepage);
+export default withAuth(BusinessesToBeVerified);

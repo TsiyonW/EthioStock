@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/styles.scss";
-import { Form, Input, Button, Alert } from "antd";
+import { Form, Input, Button, Alert ,Card} from "antd";
 import {
   StockOutlined,
   FileDoneOutlined,
@@ -18,6 +18,8 @@ import LoginSignupHeader from "./LoginSignupHeader";
 import store from "../../store";
 import { useMutation, useQuery } from "@apollo/client";
 import { Redirect } from "react-router-dom";
+
+import bg from '../../img/bg.jpg';
 
 const Login = (props) => {
   let [errMessage, setErrorMessage] = useState("");

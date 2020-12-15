@@ -5,7 +5,7 @@ import withAuth from "../../routers/withAuth";
 // import store from '../../store'
 import 'antd/dist/antd.css';
 import '../../styles/styles.scss';
-import Header from '../Businessowner/Header'
+import HeaderA from './AdminHeader'
 import auth from '../../Auth'
 const FormItem = Form.Item;
 
@@ -51,13 +51,9 @@ closeSideBar=()=>{
    
 
     return(
-      <div className = "signup-container ">                              
-        
-        <Header handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-
-
-
-        <div className = "signup-content">
+      <div>      
+        <HeaderA handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+        <div>
           <h1>Verify Admin</h1>
 
           {/* <Modal

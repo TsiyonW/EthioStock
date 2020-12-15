@@ -3,13 +3,12 @@ import {CREATE_POST_MUTATION} from '../../gql/mutation/post'
 
 import { Mutation } from "@apollo/client/react/components";
 import auth from '../../Auth';
-import {  Form,Input, Modal, Alert,Modal, Button,Card,Affix,Form,Layout} from 'antd'
+import {  Form,Input, Alert,Modal, Button,Card,Affix,Layout} from 'antd'
 import Header3 from './Header3'
 import bg from '../../img/bg.jpg';
 const {  Footer } = Layout;
 
 
-import {  Modal, Button,Card,Affix,Form,Layout} from 'antd'
 
 class CreatePost extends Component{
     formRef = React.createRef();
@@ -88,7 +87,7 @@ class CreatePost extends Component{
                  <h3>Create Post</h3> <br/>
                 <Card style={{width:750 ,height:270 , marginTop:-25, marginLeft:-25 ,background:"white"}}> 
                   
-                    <Header handleLogout = {this.logout}/>
+                    <Header3 handleLogout = {this.logout}/>
                     <Form ref={this.formRef} onFinish={this.onFinish}>
                     {createFail?<Alert
                               message="Error"
@@ -165,6 +164,7 @@ class CreatePost extends Component{
                  </Card>
                  <br/><br/><br/><br/><br/>
                  <Footer style={{ textAlign: 'center'  , marginTop:'auto' ,background:'#CEECE8'}}>Ethiostock ©2020 </Footer>
+            </div>
             </div>
         )
     }

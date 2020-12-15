@@ -3,7 +3,7 @@ import { Form,Input,Modal,Upload,Button, Radio} from 'antd';
 import { Redirect } from "react-router-dom";
 import { UploadOutlined } from '@ant-design/icons';
 import withAuth from '../../routers/withAuth'
-import Header from './Header'
+import HeaderB from './BusinessHeader'
 import auth from '../../Auth'
 import { Mutation } from "@apollo/client/react/components";
 import { ADD_BUSINESSOWNER_INFO } from '../../gql/mutation/account'
@@ -112,7 +112,7 @@ closeSideBar=()=>{
     return(
       <div className = "signup-container ">                              
         
-        <Header handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+        <HeaderB handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
 
         <SideBar closeSideBar= {this.closeSideBar}/>
                 

@@ -33,9 +33,11 @@ import BusinessHomepage from '../components/Businessowner/BusinessHomepage'
 import InvestorHomepage from '../components/Investor/InvestorHomepage'
 import VerifyAdmin from '../components/Admin/VerifyAdmin'
 import VerifyMyAdminAccount from '../components/Admin/VerifyMyAdminAccount'
-import ReportsToBeResolved from '../components/Report/ReportsToBeResolved'
+import ReportsToBeResolvedPage from '../components/Report/ReportsToBeResolvedPage'
 import SearchResults from '../components/Account/SearchResults'
 import UpdateProfile from '../components/Account/UpdateProfile'
+import AdminsToBeVerified from '../components/Admin/AdminsToBeVerifiedPage'
+import BusinessesToBeVerifiedPage from '../components/Businessowner/BusinessesToBeVerifiedPage'
 const NotFoundPage = () => (
   <div>
     <div>404! PAGE NOT FOUND</div>
@@ -66,7 +68,7 @@ const AppRouter = () => (
           <Route path='/forgetpassword' component={ForgetPassword}/> 
           <Route path="/resetpassword/:token" component={ResetPassword} />
           <Route path="/changepassword" component={ChangePassword}/>
-          <Route path="/reportstoberesolved" component={ReportsToBeResolved}/>
+          <Route path="/reportstoberesolved" component={ReportsToBeResolvedPage}/>
           <Route path="/profile" component={Profile} />
           <Route path="/viewstock" component={ViewStock} />
           <Route path="/viewBusiness/:id" component={ViewBusiness}/>
@@ -75,6 +77,8 @@ const AppRouter = () => (
           <Route path="/searchresults" component={SearchResults}/>
           <Route path="/updateinvestor" component={UpdateInvestor}/>
           <Route path="/updateprofile" component={UpdateProfile}/>
+          <Route path="/adminstobeverified" component={AdminsToBeVerified}/>
+          <Route path="/businessestobeverified" component={BusinessesToBeVerifiedPage}/>
           
        {/*  
         <Route path="/newsfeed" component={NewsFeed} />

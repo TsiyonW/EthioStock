@@ -1,6 +1,8 @@
 import React from 'react'
 // import { useSubscription } from '@apollo/client'
-import { HELLO, INVESTOR_CREATED_SUBSCRIPTION} from '../../gql/subscription/investerSub'
+import { 
+    // HELLO,
+     INVESTOR_CREATED_SUBSCRIPTION} from '../../gql/subscription/investerSub'
 // import {INVESTOR_CREATED_SUBSCRIPTION, HELLO} from '../gql/subscription/investerSub'
 import { Subscription } from "@apollo/client/react/components";
 

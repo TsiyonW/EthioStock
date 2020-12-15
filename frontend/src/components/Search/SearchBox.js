@@ -1,8 +1,6 @@
 import React from 'react'
 import { SearchOutlined, } from '@ant-design/icons';
 import { Button, Input, Form} from 'antd';
-import { Redirect } from 'react-router-dom';
-
 import {Query } from '@apollo/client/react/components'
 import {SEARCH_BUSINESS} from '../../gql/query/account'
 import BusinessSearched from "../Account/ViewBusinessSearched"

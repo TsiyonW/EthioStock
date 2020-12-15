@@ -1,14 +1,8 @@
 import React , {Component} from "react";
 
 import graph from '../../img/istock.jpg';
-import { Layout ,Carousel } from 'antd';
-import { Skeleton, Switch, Icon, Avatar,Card, Col, Row,Button } from 'antd';
-
+import { Card, Col, Row } from 'antd';
 const { Meta } = Card;
-
-//import { assertNamedType } from "graphql";
-// import { Query } from "react-apollo";
-const {  Footer } = Layout;
 class Marketnews extends Component{
    
     render(){
@@ -37,7 +31,7 @@ class Marketnews extends Component{
                         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt incididunt
                         culpa qui officia deserunt nollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                         incididunt ut I abore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea ........{<a href="#">More</a>}
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea ........{<a href="/dlkjf">More</a>}
                          </p>  
                          
             </Card>
@@ -52,7 +46,7 @@ class Marketnews extends Component{
                         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt incididunt
                         culpa qui officia deserunt nollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                         incididunt ut I abore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea ........{<a href="#">More</a>}
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea ........{<a href="/jfdslk">More</a>}
                          </p>   
             </Card>
             </Col>
@@ -66,7 +60,7 @@ class Marketnews extends Component{
                         nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt incididunt
                         culpa qui officia deserunt nollit anim id est laborumLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                         incididunt ut I abore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea ........{<a href="#">More</a>}
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea ........{<a href="/djh">More</a>}
                          </p>   
             </Card>
             </Col>

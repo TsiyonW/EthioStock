@@ -1,11 +1,10 @@
 import React ,{useState} from 'react'
 import {GET_INVESTOR_BY_ID} from '../../gql/query/investor'
-import { useParams } from 'react-router-dom'
 // import { useQuery } from '@apollo/client'
 import {Link} from 'react-router-dom'
 import { Query } from '@apollo/client/react/components'
 import withAuth from '../../routers/withAuth'
-import { Form, Input,Modal, Button,Alert} from 'antd';
+import { Form, Input, Button,Alert} from 'antd';
 import { useMutation} from '@apollo/client'
 import {UPDATE_INVESTOR_INFO} from '../../gql/mutation/investor'
 const UpdateInvestor =(props)=>{ 

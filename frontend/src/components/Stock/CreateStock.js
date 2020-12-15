@@ -3,14 +3,17 @@ import {CREATE_STOCK_MUTATION} from '../../gql/mutation/stock'
 
 import { Mutation } from "@apollo/client/react/components";
 import auth from '../../Auth'
-import Header from '../Businessowner/Header'
 import SideBar from '../Businessowner/Sidebar'
 import Notifications from '../Notification/NotificationList'
 import withAuth from '../../routers/withAuth';
 import "antd/dist/antd.css"
-import {Form, Button, Modal,Input} from 'antd'
+import {Form, Button, Modal,Input, Card, Affix,Layout} from 'antd'
+import bg from '../../img/bg.jpg';
 
 import {Redirect} from 'react-router-dom'
+import Header3 from '../Post/Header3'
+const {  Footer } = Layout;
+
 class CreateStock extends Component{
     constructor(){
         super();
@@ -117,14 +120,20 @@ class CreateStock extends Component{
                   <p>Price: {price}</p>
                   <p>Minimum amount of stock to buy: {minAmountOfStockToBuy}</p>
                 </Modal>
-
-                 <Header handleLogout = {this.handlelogout} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
-                <div className="createstock-container">
-                    <h1>Welcome: {user.email}</h1>
+                <Affix>
+                 <Header3 handleLogout = {this.handlelogout} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+                 </Affix>
+                 <Card bordered={false} cover={<img alt="example" src={bg}  style={{   transparent :1 , marginTop:-10 ,opacity: 0.3 , height:200 , display:"block" ,} }/> }></Card>
+               
+               
+             <Card style={{width:750 ,height:750 , opacity: 0.7, marginLeft:200 ,background:"whitesmoke",marginTop:-150}}>
+                    
+                 <h1>Welcome: {user.username}</h1>
                     <p className="createstock-title">New Stock</p>
                     <br/><br/>
                     <div className="createstock-fields">
-                    
+                    <Card style={{width:750 ,height:650 , marginTop:-25, marginLeft:-26, opacity: 0.9 ,background:"white"}}>
+                      
                         <Form ref={this.formRef} onFinish={this.onFinish} >
                         <p  className="authentication-error">{errMessage}</p>
                         
@@ -170,13 +179,19 @@ class CreateStock extends Component{
 
                         </Form>
                             
+                    </Card>
                     </div>
                         
-
-                 </div>
-                 <Notifications/>
-                <SideBar closeSideBar= {this.closeSideBar}/>
-            </div>
+                        </Card>
+                    
+                         <Notifications/>
+                        
+                        <SideBar closeSideBar= {this.closeSideBar}/>
+                        <br/><br/><br/>
+                        <Footer style={{ textAlign: 'center'  , marginTop:'auto' ,background:'#CEECE8'}}>Ethiostock ©2020 </Footer>
+                        
+                    </div>
+                   
         )
     }
 

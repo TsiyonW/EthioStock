@@ -16,21 +16,21 @@ const ForgetPassword = () => {
     onCompleted(resetPassword) {
       const { success, errors } = resetPassword.sendPasswordResetEmail;
       if (success) {
-        setShowForgetPass({ showForgetPass: false });
-        setShowSuccess({ showSuccess: true });
+        setShowForgetPass(showForgetPass= false );
+        setShowSuccess(showSuccess= true );
       }
       if (!success) {
-        setErrMessage(errors[Object.keys(errors)[0]][0].message);
+        setErrMessage(errMessage = errors[Object.keys(errors)[0]][0].message);
       }
     },
   });
 
-  const hideStyle = {
-    display: "None",
-  };
-  const showStyle = {
-    display: "block",
-  };
+  // const hideStyle = {
+  //   display: "None",
+  // };
+  // const showStyle = {
+  //   display: "block",
+  // };
 
   const onFinish = (values) => {
     console.log(values);

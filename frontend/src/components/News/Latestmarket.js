@@ -1,19 +1,19 @@
 import React , {Component} from "react";
-import Header from '../Investor/Header'
-import auth from '../../Auth'
-import RecentTradesList from "../RecentTrade/RecentTrade";
-import MyStockList from "../Stock/MyStockList";
-import SideBar from '../Account/Sidebar';
-import userIcon from '../../img/usericon.png';
+// import Header from '../Investor/Header'
+// import auth from '../../Auth'
+// import RecentTradesList from "../RecentTrade/RecentTrade";
+// import MyStockList from "../Stock/MyStockList";
+// import SideBar from '../Account/Sidebar';
+// import userIcon from '../../img/usericon.png';
 import graph from '../../img/istock.jpg';
-import { Layout,Statistic } from 'antd';
-import { Skeleton, Switch, Avatar,Card, Col, Row,Button,Carousel } from 'antd';
+import { Statistic } from 'antd';
+import { Card, Col, Row } from 'antd';
 
 const { Meta } = Card;
 
 //import { assertNamedType } from "graphql";
 // import { Query } from "react-apollo";
-const {  Footer } = Layout;
+// const {  Footer } = Layout;
 
 class MarketLatest extends Component{
    

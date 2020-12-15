@@ -21,7 +21,7 @@ const ChangePassword = (props) => {
         );
       }
       if (success) {
-        setShowLoginLink((showLoginLink = true));
+        setShowLoginLink(showLoginLink = true);
         setShowPasswordChange((showPasswordChange = false));
         setErrorMessage((errMessage = "Password Changed Successfully"));
       }

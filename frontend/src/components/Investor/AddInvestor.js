@@ -5,7 +5,7 @@ import { Mutation } from "@apollo/client/react/components";
 import { ADD_INVESTOR_INFO } from '../../gql/mutation/investor'
 import 'antd/dist/antd.css';
 import '../../styles/styles.scss';
-import Header from './Header'
+import HeaderI from './InvestorHeader'
 import auth from '../../Auth'
 
 import SideBar from "./Sidebar";
@@ -136,7 +136,7 @@ closeSideBar=()=>{
     return(
       
       <div className = "signup-container ">
-          <Header handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
+          <HeaderI handleLogout = {this.handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {this.displaySideBar}/>
           <SideBar closeSideBar= {this.closeSideBar}/>
                 
 <Modal

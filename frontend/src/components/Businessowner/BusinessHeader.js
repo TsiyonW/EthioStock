@@ -12,7 +12,7 @@ import {
     DollarOutlined 
   } from '@ant-design/icons';
 import SearchBox from '../Search/SearchBox';
-class Header extends React.Component{
+class HeaderB extends React.Component{
     state={
         searchField:'',
     }
@@ -73,4 +73,4 @@ class Header extends React.Component{
         )
     }
 }
-export default Header;
+export default HeaderB;

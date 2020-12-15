@@ -8,7 +8,7 @@ import { useMutation} from '@apollo/client'
 import {Redirect} from 'react-router-dom'
 import withAuth from "../../routers/withAuth";
 import 'antd/dist/antd.css';
-import Header from '../Businessowner/Header';
+import HeaderA from './AdminHeader';
 
 const VerifyMyAdminAccount= (props)=>{
 
@@ -54,7 +54,7 @@ if(userProfile.userType!=='Admin' | userProfile.accountLinked){
     return(
       <div className = "signup-container ">                              
         
-        <Header handleLogout = {handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {displaySideBar}/>
+        <HeaderA handleLogout = {handleLogout} userType={userProfile.userType} headerButtons={false}  displaySideBar = {displaySideBar}/>
 
         <div className = "signup-content">
           <h1>Verify My Admin Account</h1>
